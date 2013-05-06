@@ -1,0 +1,72 @@
+<emailTemplates>
+	<emailTemplate name="forum_verifiedanswer">
+		<subject>
+			<![CDATA[
+$core_v2_forumReply.Current.Subject: Answer verified
+			]]>
+		</subject>
+		<htmlBody>
+			<![CDATA[
+#set($post = $core_v2_forumReply.Current)
+#set($forum = $core_v2_forum.Get($post.ForumId))
+#set($wikis = $core_v2_wiki.List("%{GroupId=$forum.Group.Id,PageSize=1,PageIndex=0}"))
+
+#set($wiki = false)
+#if($wikis.Count > 0)
+	#set($wiki = $wikis.get_Item(0))
+#end
+
+<style type="text/css">
+	blockquote.quote { border:1px dotted #CCCCCC; padding:5px; }
+	blockquote div.quote-user { font-weight: bold; }
+	blockquote div.quote-content p { margin: 0; font-style: italic; }
+</style>
+<div style="font-family: arial; font-size: 10pt;">
+<div style="font-size:12pt;"><b>The following post by $post.Author.DisplayName was verified as an answer to "<a href="$core_v2_forumUrls.ForumReply($post.Id)">$post.Subject</a>":</b></div><br/><br/>
+	<div>$email_utility.RenderHtml($post)</div><br />
+	<div style="background-color:#DDFFDD; border-width: 5px; border-color: #DDFFDD; border-style: solid;">
+		#if($wiki)
+			Did this answer your question? <a href="$core_v2_wikiUrls.AddPage($wiki.Id, "%{ForumThreadId=$post.ThreadId}")">Capture</a> this question and answer to a wiki.<br/>
+		#end
+		Not the answer to your question? <a href="$core_v2_forumUrls.RejectForumThreadAnswer($post.Id)">Reject as the answer</a>
+	</div>
+</div>
+<p style="font-family: arial; color: #7F7F7F; font-size: 8pt;">
+    <a href="$core_v2_urls.ReportAbuse($core_v2_forumUrls.ForumReply($post.Id), $post.ContentId, $post.GlobalContentTypeId)">Flag</a> this reply as spam/abuse.
+</p>
+			]]>
+		</htmlBody>
+		<textBody>
+			<![CDATA[
+#set($post = $core_v2_forumReply.Current)
+#set($forum = $core_v2_forum.Get($post.ForumId))
+#set($wikis = $core_v2_wiki.List("%{GroupId=$forum.Group.Id,PageSize=1,PageIndex=0}"))
+
+#set($wiki = false)
+#if($wikis.Count > 0)
+	#set($wiki = $wikis.get_Item(0))
+#end
+
+From: $post.Author.DisplayName
+Post: $email_utility.RenderText($post.Subject)
+Posted in: $email_utility.RenderText($core_v2_forum.Current.Name)
+Link: $core_v2_forumUrls.ForumReply($post.Id)
+
+Suggested Answer:
+$email_utility.RenderText($post)
+
+#if($wiki)
+Did this answer your question? Capture this question and answer to a wiki: $core_v2_wikiUrls.AddPage($wiki.Id, "%{ForumThreadId=$post.ThreadId}")
+#end
+Not the answer to your question? Reject as the answer: $core_v2_forumUrls.RejectForumThreadAnswer($post.Id)
+
+------------------------------------------------------------------
+You were sent this email because you opted to receive email notifications when someone responded to this thread.
+
+To unsubscribe from:
+- ...only this thread, disable notifications at $core_v2_forumUrls.ForumReply($post.Id).
+- ...all email notifications from $core_v2_configuration.SiteName, navigate to "Settings", click on the "Email" tab, then under the "Email Configuration" section, set Send Notifications to "No".
+			]]>
+		</textBody>
+	</emailTemplate>
+</emailTemplates>

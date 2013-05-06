@@ -1,0 +1,95 @@
+<emailTemplates>
+	<emailTemplate name="forum_post_mailgateway">
+		<subject>
+			<![CDATA[
+#if($core_v2_forumThread.Current)
+	#set($post = $core_v2_forumThread.Current)
+#else
+	#set($post = $core_v2_forumReply.Current)
+#end
+$email_utility.FormatSubjectWithMailingList($post)
+			]]>
+		</subject>
+		<htmlBody>
+			<![CDATA[
+#if($core_v2_forumThread.Current)
+	#set($post = $core_v2_forumThread.Current)
+	#set($url = $core_v2_forumUrls.Thread($post.Id))
+	#set($ContentTypeId = $post.ContentTypeId)
+	#set($threadId = $post.Id)
+#else
+	#set($post = $core_v2_forumReply.Current)
+	#set($url = $core_v2_forumUrls.ForumReply($post.Id))
+	#set($ContentTypeId = $post.GlobalContentTypeId)
+	#set($threadId = $post.ThreadId)
+#end
+
+<style type="text/css">
+	blockquote.quote { border:1px dotted #CCCCCC; padding:5px; }
+	blockquote div.quote-user { font-weight: bold; }
+	blockquote div.quote-content p { margin: 0; font-style: italic; }
+</style>
+<div style="font-family: arial; font-size: 10pt;">
+	$email_utility.RenderHtml($post)
+</div>
+
+<div style="color: white; font-size: 0.1pt;">---</div><br/>
+<div style="color: #7F7F7F; font-family: arial; font-size: 8pt;">
+	#set ($hasFile = false)
+	#if ($post.File)
+		#set ($hasFile = true)
+	#elseif ($post.EmailFiles && $post.EmailFiles.Count > 0)
+		#set ($hasFile = true)
+	#end
+	#if ($hasFile)
+		<div style="border-width: 15px; border-color: #F7F7F7; border-style: solid; width: 95%;">
+			<b>Attachments:</b><br/>
+			#if ($post.File)
+				<a href="$post.File.FileUrl">$post.File.FileName</a><br />
+			#end
+			#if ($post.EmailFiles && $post.EmailFiles.Count > 0)
+				#foreach($emailFile in $post.EmailFiles)
+				#each
+					<a href="$emailFile.DirectDownloadUrl">$emailFile.FileName</a><br />
+				#end
+			#end
+		</div>
+	#end
+<a href="$url">View and reply online</a> or reply-to-all to this email.<br/><br/>
+<a href="$core_v2_forumUrls.MuteThread($threadId)">Stop receiving emails</a> on this subject.
+<br>
+$FooterMessage
+</div>
+<p style="font-family: arial; color: #7F7F7F; font-size: 8pt;">
+    <a href="$core_v2_urls.ReportAbuse($url, $post.ContentId, $ContentTypeId)">Flag</a> this post as spam/abuse.
+</p>
+			]]>
+		</htmlBody>
+		<textBody>
+			<![CDATA[
+#if($core_v2_forumThread.Current)
+	#set($post = $core_v2_forumThread.Current)
+	#set($url = $core_v2_forumUrls.Thread($post.Id))
+	#set($threadId = $post.Id)
+#else
+	#set($post = $core_v2_forumReply.Current)
+	#set($url = $core_v2_forumUrls.ForumReply($post.Id))
+	#set($threadId = $post.ThreadId)
+#end
+
+$email_utility.RenderText($post)
+
+View this message online or reply to this message ($url).
+
+#set($attachments = $email_attachments.Current)
+#if($attachments && $attachments.Count > 0)
+Attachments:
+#foreach($attachmentUrl in $attachments.Keys)
+  $attachments.Get($attachmentUrl): $attachmentUrl
+#end
+#end
+$FooterMessage
+			]]>
+		</textBody>
+	</emailTemplate>
+</emailTemplates>

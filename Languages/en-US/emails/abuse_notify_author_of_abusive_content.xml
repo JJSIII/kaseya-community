@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<emailTemplates>
+  <emailTemplate name="abuse_notify_author_of_abusive_content">
+    <subject>
+      <![CDATA[
+Your post on $core_v2_configuration.SiteName has been flagged as spam or abuse
+			]]>
+    </subject>
+    <htmlBody>
+      <![CDATA[
+#set($post = $core_v2_content.Current)
+#set($appeal = $core_v2_abuseAppeal.Current)
+#set($appealUrl = $core_v2_urls.AbuseAppeal($appeal.AppealId))
+#set($author = $core_v2_user.Get("%{Id=$post.CreatedByUserId}"))
+
+<div style="font-family: arial; font-size: 10pt;">
+
+<p>
+Dear  $author.DisplayName:<br />
+
+Your post, $post.HtmlName('Email'), in $post.Application.Container.HtmlName('Email') has been flagged by other users as inappropriate and no longer appears on the site.
+Please help maintain a safe, enjoyable experience for everyone. If you feel this action is in error, we would like to hear from you. Click <a href="$appealUrl">here</a> to submit an appeal form before $appeal.AppealExpires.ToShortDateString() and we will promptly review.
+</p>
+
+</div>
+			]]>
+    </htmlBody>
+    <textBody>
+      <![CDATA[
+#set($post = $core_v2_content.Current)
+#set($appeal = $core_v2_abuseAppeal.Current)
+#set($appealUrl = $core_v2_urls.AbuseAppeal($appeal.AppealId))
+#set($author = $core_v2_user.Get("%{Id=$post.CreatedByUserId}"))
+
+Subject: Your post on $core_v2_configuration.SiteName has been flagged as spam or abuse
+Body:
+Dear  $author.DisplayName: 
+
+Your post, $post.HtmlName(''), in $post.Application.Container.HtmlName('email') has been flagged by other users as inappropriate and no longer appears on the site.
+Please help maintain a safe, enjoyable experience for everyone. If you feel this action is in error, we would like to hear from you. Visit $appealUrl to submit an appeal form before $appeal.AppealExpires.ToShortDateString() and we will promptly review.
+			]]>
+    </textBody>
+  </emailTemplate>
+</emailTemplates>

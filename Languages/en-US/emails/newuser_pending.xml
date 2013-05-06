@@ -1,0 +1,24 @@
+<emailTemplates>
+	<emailTemplate name="newuser_pending">
+		<subject>
+			<![CDATA[
+$core_v2_configuration.SiteName: Membership request awaiting approval
+			]]>
+		</subject>
+		<htmlBody>
+			<![CDATA[
+<div style="font-family: arial; font-size: 10pt;">
+	<p>We have received your membership request to join $core_v2_configuration.SiteName with username "<b>$core_v2_user.Current.Username</b>".</p>
+	<p>Once the administrator has approved your request, you will receive a confirmation email notifying you that your account is active.</p>
+</div>
+			]]>
+		</htmlBody>
+		<textBody>
+			<![CDATA[
+We have received your membership request to join $core_v2_configuration.SiteName with username $core_v2_user.Current.Username. 
+
+Once the administrator has approved your request, you will receive a confirmation email notifying you that your account is active.
+			]]>
+		</textBody>
+	</emailTemplate>
+</emailTemplates>

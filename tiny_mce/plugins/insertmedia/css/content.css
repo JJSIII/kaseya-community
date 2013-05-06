@@ -1,0 +1,5 @@
+.mceInsertMediaItem {border:1px dotted #ccc; background-position:center; background-repeat:no-repeat; background-color:#eee}
+.mceInsertMediaItemVideo {background-image:url(../img/video.png); background-size: contain; }
+.mceInsertMediaItemAudio {background-image:url(../img/audio.png); background-size: contain; }
+.mceInsertMediaItemImage {background-image:url(../img/image.png); background-size: contain; }
+.mceInsertMediaItemEmpty {background-image:url(../img/empty.png); background-size: contain; }

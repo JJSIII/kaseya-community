@@ -1,0 +1,41 @@
+<emailTemplates>
+	<emailTemplate name="newuser_accountcreated">
+		<subject>
+			<![CDATA[
+Welcome to $core_v2_configuration.SiteName
+			]]>
+		</subject>
+		<htmlBody>
+			<![CDATA[
+#set($user = $core_v2_user.Current)
+#set($falseValue = false)
+#set($trueValue = true)
+
+<div style="font-family: arial; font-size: 10pt;">
+	<p>
+		Welcome to $core_v2_configuration.SiteName!
+	</p>
+	<p>
+		Log in as <a href='$core_v2_urls.Login("%{ReturnToCurrentUrl=$falseValue}")'>$user.Username</a> to meet like-minded community members and start participating in valuable conversations.
+		While browsing the community, don't forget to visit the <a href="$core_v2_urls.Home()">home page</a>, and your <a href="$core_v2_urls.Settings("%{Clean='true'}")">user settings page</a>, where you can add a bio and personalize your settings, including controlling email notifications such as these.
+	</p>
+	<p>Happy connecting!</p>
+</div>
+			]]>
+		</htmlBody>
+		<textBody>
+			<![CDATA[
+#set($user = $core_v2_user.Current)
+#set($falseValue = false)
+
+Welcome to $core_v2_configuration.SiteName ($core_v2_urls.Home())!
+
+Log in as $user.Username at $core_v2_urls.Login("%{ReturnToCurrentUrl=$falseValue}") to meet like-minded community members and start participating in valuable conversations.  While browsing the community, don't forget to visit the home page and your user settings page, where you can add a bio and personalize your settings, including controlling email notifications such as these.
+
+Log in here: $core_v2_urls.Login("%{ReturnToCurrentUrl=$falseValue}")
+View your profile: $core_v2_urls.User($user.Id)
+Edit your settings and change your password: $core_v2_urls.Settings()
+			]]>
+		</textBody>
+	</emailTemplate>
+</emailTemplates>

@@ -1,0 +1,47 @@
+<emailTemplates>
+	<emailTemplate name="forum_postapproved">
+		<subject>
+			<![CDATA[
+$core_v2_forum.Current.Name post approved: #if($core_v2_forumReply.Current)$core_v2_forumReply.Current.Subject#else$core_v2_forumThread.Current.Subject#end
+			]]>
+		</subject>
+		<htmlBody>
+			<![CDATA[
+#if($core_v2_forumReply.Current)
+	#set($post = $core_v2_forumReply.Current)
+	#set($url = $core_v2_forumUrls.ForumReply($post.Id))
+#else
+	#set($post = $core_v2_forumThread.Current)
+	#set($url = $core_v2_forumUrls.Thread($post.Id))
+#end
+
+#set($forum = $core_v2_forum.Current)
+
+<div style="font-family: arial; font-size: 10pt;">
+	Your forum post was approved and has been posted.<br/><br/>
+	<div style="margin: 15px; background-color: #F7F7F7; border-width: 5px; border-color: #F7F7F7; border-style: solid; color: #000000; width: 95%">
+		<b>Subject:</b> <a href="$url">$email_utility.RenderHtml($post.Subject)</a><br/>
+		<b>Posted to:</b> <a href="$core_v2_forumUrls.Forum($forum.Id)">$email_utility.RenderHtml($forum.Name)</a>
+	</div>
+</div>
+			]]>
+		</htmlBody>
+		<textBody>
+			<![CDATA[
+#if($core_v2_forumReply.Current)
+	#set($post = $core_v2_forumReply.Current)
+	#set($url = $core_v2_forumUrls.ForumReply($post.Id))
+#else
+	#set($post = $core_v2_forumThread.Current)
+	#set($url = $core_v2_forumUrls.Thread($post.Id))
+#end
+
+Your forum post was approved and has been posted.
+
+Subject: $email_utility.RenderText($post.Subject)
+Posted to: $email_utility.RenderText($core_v2_forum.Current.Name)
+Link: $url
+			]]>
+		</textBody>
+	</emailTemplate>
+</emailTemplates>

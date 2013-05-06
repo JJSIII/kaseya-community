@@ -1,0 +1,30 @@
+<emailTemplates>
+	<emailTemplate name="friendship_request_approved">
+		<subject>
+			<![CDATA[
+$core_v2_configuration.SiteName - $email_utility.SiteTerm("friendship_propercase") confirmation: $core_v2_friendship.Current.Recipient.DisplayName
+			]]>
+		</subject>
+		<htmlBody>
+			<![CDATA[
+#set($friendship = $core_v2_friendship.Current)
+
+<div style="font-family: arial; font-size: 10pt;">
+  <p>
+    <b>$friendship.Recipient.DisplayName</b> has accepted your $email_utility.SiteTerm("friendship_lowercase") request.
+  </p>
+  <p>
+    <a href="$core_v2_urls.Friends($friendship.Requestor.Id)">View all your $email_utility.SiteTerm("friends_lowercase") online</a>.
+  </p>
+</div>
+			]]>
+		</htmlBody>
+		<textBody>
+			<![CDATA[
+#set($friendship = $core_v2_friendship.Current)
+
+$friendship.Recipient.DisplayName has accepted your $email_utility.SiteTerm("friendship_lowercase") request. View the list of all your $email_utility.SiteTerm("friends_lowercase") at $core_v2_urls.Friends($friendship.Requestor.Id).
+			]]>
+		</textBody>
+	</emailTemplate>
+</emailTemplates>

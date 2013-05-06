@@ -1,0 +1,56 @@
+<emailTemplates>
+	<emailTemplate name="messages_also_replied">
+		<subject>
+			<![CDATA[
+#set($parent = $core_v2_activityMessage.Get($core_v2_replyMessage.Current.ParentId))
+Reply to ${parent.Author.DisplayName}'s message on $core_v2_configuration.SiteName
+			]]>
+		</subject>
+		<htmlBody>
+			<![CDATA[
+#set($message = $core_v2_replyMessage.Current)
+#set($comment = $core_v2_comments.Current)
+#set($parent = $core_v2_activityMessage.Get($message.ParentId))
+#set($replies = $core_v2_replyMessage.List($parent.Id))
+#set($recipient = $core_v2_user.Current)
+
+<div style="font-family: arial; font-size: 10pt; color: #000000;">
+	<b><a href="$message.Author.ProfileUrl">$message.Author.DisplayName</a> replied:</b> $email_utility.RenderHtml($message.RenderedBody)<br/>
+</div>
+<br />
+<div style="font-family: arial; font-size:10pt; color: #000000; background-color: #F7F7F7; border-width: 5px; border-color: #F7F7F7; border-style: solid;">
+	<b>$parent.Author.DisplayName first posted:</b> $email_utility.RenderHtml($parent)
+
+	#foreach($reply in $replies)
+	#beforeall
+		<div style="line-height: 150%; border-width: 15px; border-color: #F7F7F7; border-style: solid; width: 95%; font-family: arial; font-size:10pt">
+	#each
+		#if($reply.Author.Id.Equals($recipient.Id))
+			<b>You</b>: $email_utility.RenderHtml($reply.RenderedBody)<br/>
+		#else
+			<a href="$reply.Author.ProfileUrl"><b>$reply.Author.DisplayName</b></a>: $email_utility.RenderHtml($reply.RenderedBody)<br/>
+		#end
+	#afterall
+		</div>
+	#end
+</div>
+<div style="color: #7F7F7F; font-family: arial; font-size: 8pt;">
+  <p><a href="$core_v2_urls.ActivityMessage($parent.Id)">View and reply to the message online</a>.</p>
+</div>
+
+<p style="font-family: arial; color: #7F7F7F; font-size: 8pt;">
+    <a href="$core_v2_urls.ReportAbuse($core_v2_urls.ActivityMessage($parent.Id), $comment.CommentId, $comment.CommentContentTypeId)">Flag</a> this comment as spam/abuse.
+</p>
+			]]>
+		</htmlBody>
+		<textBody>
+			<![CDATA[
+#set($message = $core_v2_replyMessage.Current)
+			
+$message.Author.DisplayName replied: $email_utility.RenderText($message.RenderedBody)
+
+View this entire message thread online at $core_v2_urls.ActivityMessage($message.ParentId).
+			]]>
+		</textBody>
+	</emailTemplate>
+</emailTemplates>

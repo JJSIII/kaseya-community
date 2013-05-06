@@ -1,0 +1,41 @@
+<emailTemplates>
+	<emailTemplate name="messages_spam_deleted_user">
+		<subject>
+			<![CDATA[
+$core_v2_configuration.SiteName: Your message was deleted
+			]]>
+		</subject>
+		<htmlBody>
+			<![CDATA[
+#set($message = $email_messageContainer.Current.Message)
+#set($user = $core_v2_user.Current)
+
+<div style="font-family: arial; font-size: 10pt;">
+	<p>
+		$message.Author.DisplayName,<br />
+		The following message that you posted to $core_v2_configuration.SiteName on $core_v2_language.FormatDateAndTime($message.CreatedDate, $user.Id) was detected as spam and automatically deleted.
+		If this was a mistake, please try again or notify the site administrators.
+	</p>
+	<div style="margin: 15px; width: 95%; background-color:#F7F7F7;">
+		$email_utility.RenderHtml($message)
+	</div>
+</div>
+			]]>
+		</htmlBody>
+		<textBody>
+			<![CDATA[
+#set($message = $email_messageContainer.Current.Message)
+#set($user = $core_v2_user.Current)
+
+$message.Author.DisplayName,
+
+The following message that you posted to $core_v2_configuration.SiteName on $core_v2_language.FormatDateAndTime($message.CreatedDate, $user.Id) was detected as spam and automatically deleted.
+If this was a mistake, please try again or notify the site administrators.
+
+Message:
+
+$email_utility.RenderText($message)
+			]]>
+		</textBody>
+	</emailTemplate>
+</emailTemplates>

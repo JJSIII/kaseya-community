@@ -1,0 +1,3 @@
+#width, #height { width: 40px }
+#url, #file, #search { width: 250px }
+#prev, #prevloading { margin: 0; border: 1px solid black; width: 380px; height: 260px; overflow: auto }

@@ -1,0 +1,23 @@
+<emailTemplates>
+	<emailTemplate name="newuser_rejected">
+		<subject>
+			<![CDATA[
+$core_v2_configuration.SiteName:  Membership not approved
+			]]>
+		</subject>
+		<htmlBody>
+			<![CDATA[
+<div style="font-family: arial; font-size: 10pt;">
+  <p>
+    You requested membership to $core_v2_configuration.SiteName, but your request was not approved.
+  </p>
+</div>
+			]]>
+		</htmlBody>
+		<textBody>
+			<![CDATA[
+You requested membership to $core_v2_configuration.SiteName, but your request was not approved.
+			]]>
+		</textBody>
+	</emailTemplate>
+</emailTemplates>

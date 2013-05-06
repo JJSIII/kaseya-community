@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<emailTemplates>
+  <emailTemplate name="abuse_notify_author_of_appeal_expiration">
+    <subject>
+      <![CDATA[
+Final chance to appeal your content that was removed from $core_v2_configuration.SiteName
+			]]>
+    </subject>
+    <htmlBody>
+      <![CDATA[
+#set($post = $core_v2_content.Current)
+#set($appeal = $core_v2_abuseAppeal.Current)
+#set($appealUrl = $core_v2_urls.AbuseAppeal($appeal.AppealId))
+#set($author = $core_v2_user.Get("%{Id=$post.CreatedByUserId}"))
+ 
+<div style="font-family: arial; font-size: 10pt;">
+<p>
+Dear  $author.DisplayName:<br />
+
+A few days ago we sent you an email about your post, $post.HtmlName("email"), in $post.Application.Container.HtmlName('email'). 
+The post was flagged by other users as inappropriate and no longer appears on the site. After $core_v2_abuseAppeal.Current.AppealExpires.ToLongDateString() we will delete this content permanently. Please let us know if this action was in error by sending us a message using <a href="$appealUrl">this form<a> before your content is removed after the appeal expiration on $core_v2_abuseAppeal.Current.AppealExpires.ToLongDateString().
+</p>
+</div>
+			]]>
+    </htmlBody>
+    <textBody>
+      <![CDATA[
+#set($post = $core_v2_content.Current)
+#set($appeal = $core_v2_abuseAppeal.Current)
+#set($appealUrl = $core_v2_urls.AbuseAppeal($appeal.AppealId))
+#set($author = $core_v2_user.Get("%{Id=$post.CreatedByUserId}"))
+
+Dear $author.DisplayName: 
+ 
+A few days ago we sent you an email about your post, $post.HtmlName("email"), in $post.Application.Container.HtmlName('email'). 
+The post was flagged by other users as inappropriate and no longer appears on the site. After $core_v2_abuseAppeal.Current.AppealExpires.ToLongDateString() we will delete this content permanently. Please let us know if this action was in error by sending us a message using this form ($appealUrl) before your content is removed after the appeal expiration on $core_v2_abuseAppeal.Current.AppealExpires.ToLongDateString().
+			]]>
+    </textBody>
+  </emailTemplate>
+</emailTemplates>

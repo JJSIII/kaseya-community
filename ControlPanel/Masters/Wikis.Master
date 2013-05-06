@@ -1,0 +1,91 @@
+<%@ Master Language="C#" AutoEventWireup="true" MasterPageFile="ControlPanel.Master" %>
+<%@ Import Namespace="Telligent.Evolution.Components" %>
+<%@ Import Namespace="Telligent.Evolution.Wikis.Components" %>
+
+<script runat="server" type="text/C#">
+	private static bool HasAccessToMultipleWikis()
+	{
+        Telligent.Evolution.Wikis.Components.WikiQuery query = new Telligent.Evolution.Wikis.Components.WikiQuery() { Permission = Telligent.Evolution.Wikis.WikiPermission.ModifyWiki, PageSize = 2 };
+        PagedSet<Wiki> wikis = Wikis.GetWikis(query);
+		if (wikis != null && wikis.TotalItems > 1)
+			return true;
+		
+		return false;
+	}
+
+
+	private static Wiki GetCurrentWiki()
+	{
+		return CSContext.Current.GetCurrent<Wiki>(ApplicationType.Wiki);
+	}
+</script>
+
+<asp:Content ContentPlaceHolderID="PageTitleRegion" runat="server">
+    <TEControl:ConditionalContent runat="server">
+        <ContentConditions><TEControl:CustomCondition runat="server" CustomResult='<%# Context.Request.RawUrl.Contains("switch.aspx") %>' /></ContentConditions>
+        <TrueContentTemplate><CP:ResourceControl ID="ResourceControl1" runat="server" ResourceName="CP_Dashboard_MyWikis_Select" /></TrueContentTemplate>
+        <FalseContentTemplate><CP:ResourceControl ID="ResourceControl3" runat="server" ResourceName="Managing" /> <TEWiki:WikiData runat="server" Property="Name" Text="'{0}'" /></FalseContentTemplate>
+    </TEControl:ConditionalContent>
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="PanelTitle" runat="server">
+    <TEControl:ConditionalContent runat="server">
+        <ContentConditions><TEControl:CustomCondition runat="server" CustomResult='<%# Context.Request.RawUrl.Contains("switch.aspx") %>' /></ContentConditions>
+        <TrueContentTemplate><CP:ResourceControl ID="ResourceControl2" runat="server" ResourceName="CP_Dashboard_MyWikis_Select" /></TrueContentTemplate>
+        <FalseContentTemplate>
+            <CP:ResourceControl ID="ResourceControl3" runat="server" ResourceName="Managing" /> <TEWiki:WikiData runat="server" Property="Name" Text="'{0}'" />
+
+            <TEControl:PlaceHolder runat="server">
+                <DisplayConditions><TEControl:CustomCondition runat="server" CustomResult='<%# HasAccessToMultipleWikis() %>' /></DisplayConditions>
+                <ContentTemplate><span>(<asp:HyperLink runat="server" NavigateUrl="~/ControlPanel/Wikis/switch.aspx">choose wiki</asp:HyperLink>)</span></ContentTemplate>
+            </TEControl:PlaceHolder> 
+        </FalseContentTemplate>
+    </TEControl:ConditionalContent>
+</asp:Content>
+
+<asp:Content runat="server" ContentPlaceHolderID="TopLeft">
+    <asp:HyperLink runat="server" NavigateUrl="~/ControlPanel/"><CP:ResourceControl ID="ResourceControl3" runat="server" ResourceName="Dashboard" /></asp:HyperLink>
+    <span class="pipe">&raquo;</span>
+    <asp:HyperLink runat="server" NavigateUrl="~/ControlPanel/Wikis/switch.aspx"><CP:ResourceControl ID="ResourceControl4" runat="server" ResourceName="CP_Tabs_MyWikis" /></asp:HyperLink>
+    <TEWiki:WikiData runat="server" Property="Name">
+        <DisplayConditions Operator="Not">
+            <TEControl:CustomCondition runat="server" CustomResult='<%# Context.Request.RawUrl.Contains("switch.aspx") %>' />
+        </DisplayConditions>
+        <LeaderTemplate> <span class="pipe">&raquo;</span> <a href="<%= WikiUrls.Instance().ControlPanel_Manage(GetCurrentWiki().ID) %>"></LeaderTemplate>
+        <TrailerTemplate></a></TrailerTemplate>
+    </TEWiki:WikiData>
+    <asp:ContentPlaceHolder runat="server" ID="TopLeft">
+        <span class="pipe">&raquo;</span>
+        <asp:ContentPlaceHolder id="DescriptionRegion" runat="server" />
+    </asp:ContentPlaceHolder>
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="TopRight" runat="server">
+    <TEWiki:WikiData runat="server" Text='<%# Telligent.Evolution.Components.ResourceManager.GetString("CP_GoToWiki", "ControlPanelResources.xml") %>' LinkTo="HomePage">
+        <DisplayConditions Operator="Not">
+            <TEControl:CustomCondition runat="server" CustomResult='<%# Context.Request.RawUrl.Contains("switch.aspx") %>' />
+        </DisplayConditions>
+        <TrailerTemplate> <CP:ResourceControl runat="server" ResourceName="CP_Separator" /> </TrailerTemplate>
+    </TEWiki:WikiData>
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="PanelNavigation" runat="server">
+    <CP:ControlPanelSelectedNavigation runat="server" SelectedTab="Wikis" />
+    <asp:ContentPlaceHolder ID="PanelNavigation" runat="server">
+        <div class="DashboardMenuArea"><CP:NavigationDropDownList CssClass="DashboardMenu" OpenCssClass="DashboardMenuOpen" runat="server" FileName="~/ControlPanel/DashboardMenu.config" MenuGroupCssClass="DashboardContextMenuGroup" MenuItemCssClass="DashboardContextMenuItem" MenuItemSelectedCssClass="DashboardContextMenuItemHover" MenuItemIconWidth="20" MenuItemIconHeight="20" MenuDirection="Down" /></div>
+	    <CP:ControlPanelNavigationTabs runat="server" Filename="Wikis/NavBar.config"
+	        PanesCssClass="NavPane"
+	        TabSetCssClass="NavPaneTabSet"
+	        TabCssClasses="NavPaneTab"
+	        TabSelectedCssClasses="NavPaneTabSelected"
+	        TabHoverCssClasses="NavPaneTabHover"
+	        ChildCssClass="ChildNavPaneTabSet"
+	        ChildTabCssClasses="ChildNavPaneTab"
+	        ChildTabSelectedCssClasses="ChildNavPaneTabSelected"
+	        ChildTabHoverCssClasses="ChildNavPaneTabHover" />
+    </asp:ContentPlaceHolder>
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="TaskRegion" runat="server">
+    <asp:ContentPlaceHolder runat="server" id="TaskRegion" />
+</asp:Content>

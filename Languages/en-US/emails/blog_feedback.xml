@@ -1,0 +1,54 @@
+<emailTemplates>
+	<emailTemplate name="blog_feedback">
+		<subject>
+			<![CDATA[
+$core_v2_blog.Current.Name: $core_v2_blogPost.Current.Title Feedback
+			]]>
+		</subject>
+		<htmlBody>
+			<![CDATA[
+#set($blog = $core_v2_blog.Current)
+#set($comment = $core_v2_blogComment.Current)
+#set($parent = $core_v2_blogPost.Current)
+
+<div style="font-family: arial; font-size: 10pt;">
+	<div style="font-size: 12pt;">
+		<b><a href="$core_v2_blogUrls.BlogPost($parent.Id)">$parent.Title</a>: New Comment</b>
+	</div>
+	By $comment.Author.DisplayName<br/><br/>
+	<p>
+		$email_utility.RenderHtml($comment)
+	</p>
+	<p>
+		This feedback was #if($comment.IsApproved)$core_v2_language.GetResource("Post_IsApproved")#else$core_v2_language.GetResource("Post_NotApproved")#end
+	</p>
+	<p>
+		<a href="$core_v2_blogUrls.AdminFeedbackAction($blog.Id, "approve", $comment.Id)">Approve</a> or <a href="$core_v2_blogUrls.AdminFeedbackAction($blog.Id, "delete", $comment.Id)">delete</a> this comment.
+	</p>
+</div>
+<p style="font-family: arial; color: #7F7F7F; font-size: 8pt;">
+    <a href="$core_v2_urls.ReportAbuse($core_v2_blogUrls.BlogPost($parent.Id), $comment.CommentId, $comment.CommentContentTypeId)">Flag</a> this comment as spam/abuse.
+</p>
+			]]>
+		</htmlBody>
+		<textBody>
+			<![CDATA[
+#set($blog = $core_v2_blog.Current)
+#set($comment = $core_v2_blogComment.Current)
+#set($parent = $core_v2_blogPost.Current)
+
+From: $comment.Author.DisplayName
+Posted: Feedback
+To: $parent.Title in $email_utility.RenderText($blog.Name)
+Link: $core_v2_blogUrls.BlogPost($parent.Id)
+
+$email_utility.RenderText($comment)
+
+This feedback was#if($comment.IsApproved) $core_v2_language.GetResource("Post_IsApproved")#else $core_v2_language.GetResource("Post_NotApproved")#end.
+
+Approve: $core_v2_blogUrls.AdminFeedbackAction($blog.Id, "approve", $comment.Id)
+Delete: $core_v2_blogUrls.AdminFeedbackAction($blog.Id, "delete", $comment.Id)
+			]]>
+		</textBody>
+	</emailTemplate>
+</emailTemplates>

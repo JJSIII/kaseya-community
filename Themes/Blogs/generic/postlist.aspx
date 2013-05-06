@@ -1,0 +1,1 @@
+﻿<%@ Page EnableViewState="false" Language="C#" AutoEventWireup="true" MasterPageFile="theme.Master" %><asp:Content ContentPlaceHolderID="content" runat="server">    <TEBlog:WeblogThemeContentFragmentPage runat="server" PageName="postlist" /></asp:Content>

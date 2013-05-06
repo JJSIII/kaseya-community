@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="utf-8"?><doc>
+    <assembly>
+        <name>NineRays.Gears.IFilterHelper</name>
+    </assembly>
+    <members>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <member name="T:NineRays.Gears.IFilterHelper">
+            <summary>
+            Main class that allows to extract text from files.
+            </summary>
+            <remarks>
+            <p>
+            The main class is <see cref="T:NineRays.Gears.IFilterHelper"></see> that offers the following 
+            features:
+            </p>
+            <ul>
+            <li>
+            <b>Extraction API</b>
+            <p> <see cref="M:NineRays.Gears.IFilterHelper.GetText(System.String)">IFilterHelper.GetText</see> functions allow you to 
+            get text from a file. The result is String or a null.
+            </p>
+            </li>
+            <li>
+            <b>Service API</b>
+            <p> 
+            <see cref="P:NineRays.Gears.IFilterHelper.IFiltersInfo">IFilterHelper.IFiltersInfo</see> method returns 
+            information about installed IFilters. The <see cref="T:NineRays.Gears.IFilterInfo"></see> 
+            array is returned as a result. The IFilterInfo class 
+            contains information about IFilter, for example, its name, the list of 
+            document extensions that it can process.
+            </p>
+            </li>
+            </ul>
+            </remarks>
+            
+            <example>
+            <code>
+            [VB.NET]
+            Imports System
+            Imports NineRays.Gears
+            
+            Namespace NineRays.Gears.Samples
+              Class HelloWorld
+                Inherits Object
+            
+                Public Sub New()
+                  MyBase.New()
+                End Sub
+            
+                Public Shared Sub Main()
+                  Console.WriteLine(IFilterHelper.GetText("HelloWorld.doc"))
+                End Sub
+            
+              End Class
+            End Namespace
+            
+            [C#]
+            using System;
+            using NineRays.Gears;
+            
+            namespace NineRays.Gears.Samples {
+              class HelloWorld  {
+                static void Main(string[] args)  {
+                  String text = IFilterHelper.GetText("HelloWorld.doc");
+                  Console.WriteLine(text);
+            }}}
+            </code>
+            </example>
+        </member>
+        <member name="M:NineRays.Gears.IFilterHelper.#cctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:NineRays.Gears.IFilterHelper"></see>.
+            </summary>
+        </member>
+        <member name="M:NineRays.Gears.IFilterHelper.IsSupported(System.String)">
+            <summary>
+            Is document format supported?
+            </summary>
+            <example>
+            <code>
+            
+             if( IFilterHelper.IsSupported(".pdf")) { ... }
+            
+            or
+            
+             String fileName = "MyDocument.DOC";
+             if( IFilterHelper.IsSupported(filename)) { ... }
+            
+            </code>
+            </example>
+            <param name="extension">Filename or document format extension denoted by '.'</param>
+            <returns><c>true</c> is document format is supported<br><c>false</c>otherwise</br></returns>
+        </member>
+        <member name="M:NineRays.Gears.IFilterHelper.IsSupported(System.IO.FileInfo)">
+            <summary>
+            Is document format supported?
+            </summary>
+            <example>
+            <code>
+            
+             if( IFilterHelper.IsSupported(".pdf")) { ... }
+            
+            or
+            
+             String fileName = "MyDocument.DOC";
+             if( IFilterHelper.IsSupported(filename)) { ... }
+            
+            </code>
+            </example>
+            <param name="fileInfo">file</param>
+            <returns><c>true</c> if document format is supported<br><c>false</c>otherwise</br></returns>
+        </member>
+        <member name="M:NineRays.Gears.IFilterHelper.GetText(System.String)">
+            <summary>
+            Extracts text from a file.
+            </summary>
+            <param name="fileName">filename of the file</param>
+            <returns>The text content from the file, or <c>null</c> if document format isn't supported.</returns>
+        </member>
+        <member name="M:NineRays.Gears.IFilterHelper.GetText(System.IO.FileInfo)">
+            <summary>
+            Extracts text from a file.
+            </summary>
+            <param name="fileInfo">file</param>
+            <returns>The text content from the file, or <c>null</c> if document format isn't supported.</returns>
+        </member>
+        <member name="M:NineRays.Gears.IFilterHelper.GetText(System.IO.FileInfo,System.String)">
+            <summary>
+            Extracts text from a file with the specified file extension
+            </summary>
+            <param name="fileInfo">file</param>
+            <param name="extension">file extension</param>
+            <returns>The text content from the file, or <c>null</c> if document format isn't supported.</returns>
+        </member>
+        <member name="M:NineRays.Gears.IFilterHelper.GetText(System.String,System.String)">
+            <summary>
+            Extracts text from a file with the specified file extension
+            </summary>
+            <param name="fileName">filename</param>
+            <param name="extension">file extension</param>
+            <returns>The text content from the file, or <c>null</c> if document format isn't supported.</returns>
+        </member>
+        <member name="P:NineRays.Gears.IFilterHelper.IFiltersInfo">
+            <summary>
+            Gets information about installed <see cref="T:NineRays.Gears.IFilterInfo">IFilters</see>.
+            </summary>
+        </member>
+        <member name="T:NineRays.Gears.IFilterType">
+            <summary>
+            </summary>
+            <exclude></exclude>
+        </member>
+        <member name="F:NineRays.Gears.IFilterType.Unknown">
+            <summary>
+            <p>
+            </p>
+            </summary>
+        </member>
+        <member name="F:NineRays.Gears.IFilterType.FileFilter">
+            <summary>
+            <p>
+            </p>
+            </summary>
+        </member>
+        <member name="F:NineRays.Gears.IFilterType.StreamFilter">
+            <summary>
+            <p>
+            </p>
+            </summary>
+        </member>
+        <member name="F:NineRays.Gears.IFilterType.FileAndStreamFilter">
+            <summary>
+            <see cref="F:NineRays.Gears.IFilterType.FileFilter"></see> and <see cref="F:NineRays.Gears.IFilterType.StreamFilter"></see>
+            </summary>
+        </member>
+        <member name="T:NineRays.Gears.IFilterInfo">
+            <summary>
+            Represents information about a specific IFilter 
+            including the title of the, the dll name, the GUID and etc.
+            </summary>
+            <remarks>
+            The <b>IFilterInfo</b> class holds IFilter-specific information, such 
+            as title, dll name, GUID, and the associated extensions.
+            </remarks>
+        </member>
+        <member name="M:NineRays.Gears.IFilterInfo.GetExtensionsString">
+            <summary>
+            Gets supported extensions as string
+            </summary>
+            <returns>The string contains supported extension delimited by <c>;</c></returns>
+        </member>
+        <member name="M:NineRays.Gears.IFilterInfo.GetExtensionsString(System.String)">
+            <summary>
+            Gets supported extensions as string with the specified separator.
+            </summary>
+            <param name="separator">separator</param>
+            <returns>The string contains supported extension delimited by <c>separator</c></returns>
+        </member>
+        <member name="M:NineRays.Gears.IFilterInfo.ContainsExtension(System.String)">
+            <summary>
+            Returns <c>true</c> if the specified extension is supported.
+            </summary>
+            <param name="extension">extension</param>
+            <returns><b>true</b> if the spicified extension is supported; otherwise, <b>false</b></returns>
+        </member>
+        <member name="P:NineRays.Gears.IFilterInfo.Title">
+            <summary>
+            Gets title of the IFilter
+            </summary>
+        </member>
+        <member name="P:NineRays.Gears.IFilterInfo.DllName">
+            <summary>
+            Gets the DLL name of the IFilter
+            </summary>
+        </member>
+        <member name="P:NineRays.Gears.IFilterInfo.ThreadingModel">
+            <summary>
+            Gets threading model 
+            </summary>
+            <exclude></exclude>
+        </member>
+        <member name="P:NineRays.Gears.IFilterInfo.Extensions">
+            <summary>
+            Gets supportted extensions
+            </summary>
+        </member>
+        <member name="P:NineRays.Gears.IFilterInfo.ClassID">
+            <summary>
+            Gets GUID of the IFilter
+            </summary>
+        </member>
+        <member name="P:NineRays.Gears.IFilterInfo.FilterType">
+            <summary>
+            Gets <see cref="T:NineRays.Gears.IFilterType"></see>
+            </summary>
+            <exclude></exclude>
+        </member>
+        <member name="P:NineRays.Gears.IFilterInfo.IsFileFilter">
+            <summary>
+            </summary>
+            <exclude></exclude>
+        </member>
+        <member name="P:NineRays.Gears.IFilterInfo.IsStreamFilter">
+            <summary>
+            </summary>
+            <exclude></exclude>
+        </member>
+        <member name="T:NineRays.Gears.NamespaceDoc">
+            <summary>
+            <p>
+            Gears.IFilterHelper is a .NET component that allows 
+            you to use IFilters to extract text from various formats 
+            like Adobe PDF, Microsoft Office, Zip, CHM and other formats.
+            </p>
+            
+            <h4>Gears.IFilterHelper's API Overview</h4>
+            <p>
+            <br></br>
+            The main class is <see cref="T:NineRays.Gears.IFilterHelper"></see> that offers the following 
+            features:
+            </p>
+            <ul>
+            <li>
+            <b>Extraction API</b>
+            <p> <see cref="M:NineRays.Gears.IFilterHelper.GetText(System.String)">IFilterHelper.GetText</see> functions allow you to 
+            get text from a file. The result is String or a null.
+            </p>
+            </li>
+            <li>
+            <b>Service API</b>
+            <p> 
+            <see cref="P:NineRays.Gears.IFilterHelper.IFiltersInfo">IFilterHelper.IFiltersInfo</see> method returns 
+            information about installed IFilters. The <see cref="T:NineRays.Gears.IFilterInfo"></see> 
+            array is returned as a result. The IFilterInfo class 
+            contains information about IFilter, for example, its name, the list of 
+            document extensions that it can process.
+            </p>
+            <p>
+            <see cref="M:NineRays.Gears.IFilterHelper.IsSupported(System.String)">IFilterHelper.IsSupported</see> function allows you 
+            to find out if this document format is supported. 
+            In other words, if the corresponding IFilter is installed on the system.
+            </p>
+            </li>
+            </ul>
+            <br></br>
+            <p>
+            With Gears.IFilterHelper and IFilters, you can add text extraction 
+            capabilities to your .NET applications in a few of lines of code. 
+            </p>
+            
+            <remarks>
+            <example>
+            <code>
+            [VB.NET]
+            Imports System
+            Imports NineRays.Gears
+            
+            Namespace NineRays.Gears.Samples
+              Class HelloWorld
+                Inherits Object
+            
+                Public Sub New()
+                  MyBase.New()
+                End Sub
+            
+                Public Shared Sub Main()
+                  Console.WriteLine(IFilterHelper.GetText("HelloWorld.doc"))
+                End Sub
+              End Class
+            End Namespace
+            </code>
+            </example>
+            <example>
+            <code>
+            [C#]
+            using System;
+            using NineRays.Gears;
+            
+            namespace NineRays.Gears.Samples {
+              class HelloWorld  {
+                static void Main(string[] args)  {
+                  String text = IFilterHelper.GetText("HelloWorld.doc");
+                  Console.WriteLine(text);
+            }}}
+            </code>
+            </example>
+            </remarks>
+            </summary>
+        </member>
+    </members>
+</doc>

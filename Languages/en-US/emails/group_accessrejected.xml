@@ -1,0 +1,21 @@
+<emailTemplates>
+	<emailTemplate name="group_accessrejected">
+		<subject>
+			<![CDATA[
+$core_v2_configuration.SiteName - Membership request denied: $core_v2_group.Current.Name
+			]]>
+		</subject>
+		<htmlBody>
+			<![CDATA[
+<div style="font-family: arial; font-size: 10pt;">
+	<p>You requested membership to $core_v2_group.Current.Name, but your request was not approved at this time.</p>
+</div>
+			]]>
+		</htmlBody>
+		<textBody>
+			<![CDATA[
+You requested membership to $core_v2_group.Current.Name, but your request was not approved at this time.
+			]]>
+		</textBody>
+	</emailTemplate>
+</emailTemplates>

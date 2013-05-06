@@ -1,0 +1,33 @@
+<emailTemplates>
+	<emailTemplate name="message_to_users_in_role">
+		<subject>
+			<![CDATA[
+$core_v2_configuration.SiteName: $core_v2_broadcastMessage.Current.Subject
+			]]>
+		</subject>
+		<htmlBody>
+			<![CDATA[
+#set($message = $core_v2_broadcastMessage.Current)
+
+<div style="font-family: arial; font-size: 10pt;">
+	$message.Body
+	<div style="color: #7F7F7F; font-size: 8pt;">
+		<p>
+			You were sent this email because an administrator sent it to all users in the $message.Role.Name role on $core_v2_configuration.SiteName.
+		</p>
+	</div>
+</div>
+			]]>
+		</htmlBody>
+		<textBody>
+			<![CDATA[
+#set($message = $core_v2_broadcastMessage.Current)
+
+$email_utility.RenderText($message.Body)
+
+--
+You were sent this email because an administrator sent it to all users in the $message.Role.Name role on $core_v2_configuration.SiteName.
+			]]>
+		</textBody>
+	</emailTemplate>
+</emailTemplates>

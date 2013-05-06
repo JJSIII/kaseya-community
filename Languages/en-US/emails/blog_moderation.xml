@@ -1,0 +1,40 @@
+<emailTemplates>
+	<emailTemplate name="blog_moderation">
+		<subject>
+			<![CDATA[
+$core_v2_blog.Current.Name: Comments awaiting your moderation
+			]]>
+		</subject>
+		<htmlBody>
+			<![CDATA[
+#set($blog = $core_v2_blog.Current)
+
+<div style="font-family: arial; font-size: 10pt;">
+	<p>
+		You have comments and/or trackbacks awaiting moderation for $blog.Name.
+	</p>
+	<div style="color: #7F7F7F; font-size: 8pt;">
+		<p>
+			You were sent this email because you are an owner of $blog.Name and the number of feedback items awaiting moderation has exceeded the notification threshold.  Moderate these posts <a href="$core_v2_blogUrls.AdminFeedback($blog.Id)">here</a>.
+		</p>
+	</div>
+</div>
+			]]>
+		</htmlBody>
+		<textBody>
+			<![CDATA[
+#set($blog = $core_v2_blog.Current)
+			
+You have comments and/or trackbacks awaiting moderation for $blog.Name at $core_v2_blogUrls.AdminFeedback($blog.Id).
+
+--
+You were sent this email because you are an owner of $blog.Name and the number of feedback items awaiting moderation has exceeded the notification threshold.
+
+To change your Moderated Feedback Notification Threshold:
+1. Login into your Weblog Control Panel.
+2. Go to the My Email Settings page.
+3. Change the moderated feedback threshold setting to the desired value.
+			]]>
+		</textBody>
+	</emailTemplate>
+</emailTemplates>

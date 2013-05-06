@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<emailTemplates>
+  <emailTemplate name="abuse_notify_author_of_accepted_appeal">
+    <subject>
+      <![CDATA[
+Your appeal display your content on $core_v2_configuration.SiteName
+			]]>
+    </subject>
+    <htmlBody>
+      <![CDATA[
+#set($post = $core_v2_content.Current)
+#set($author = $core_v2_user.Get("%{Id=$post.CreatedByUserId}"))
+ 
+<div style="font-family: arial; font-size: 10pt;">
+	 <p>
+Dear $author.DisplayName,<br />
+After a careful review, we have restored your content and appreciate your contribution. Please help maintain a safe, enjoyable experience for everyone by ensuring that your posts are appropriate and consistent with the community culture.   
+	</p>   
+</div>
+			]]>
+    </htmlBody>
+    <textBody>
+      <![CDATA[
+#set($post = $core_v2_content.Current)
+#set($author = $core_v2_user.Get("%{Id=$post.CreatedByUserId}"))
+
+Subject: Your appeal display your content on $core_v2_configuration.SiteName
+Body:
+Dear $author.DisplayName,
+After a careful review, we have restored your content and appreciate your contribution. Please help maintain a safe, enjoyable experience for everyone by ensuring that your posts are appropriate and consistent with the community culture.
+    ]]>
+    </textBody>
+  </emailTemplate>
+</emailTemplates>

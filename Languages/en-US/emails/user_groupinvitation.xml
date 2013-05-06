@@ -1,0 +1,39 @@
+<emailTemplates>
+	<emailTemplate name="user_groupinvitation">
+		<subject>
+			<![CDATA[
+$core_v2_user.Current.DisplayName has invited you to join $core_v2_group.Current.Name
+			]]>
+		</subject>
+		<htmlBody>
+			<![CDATA[
+#set($user = $core_v2_user.Current)
+#set($group = $core_v2_group.Current)
+#set($invitation = $core_v2_userInvitation.Current)
+
+<div style="font-family: arial; font-size: 10pt;">
+  $user.DisplayName invited you to join <a href="$core_v2_groupUrls.Group($group.Id)">$group.Name</a>:
+  <p>
+    <div>$email_utility.RenderHtml($invitation.Message)</div>
+  </p>
+  <p>
+    <a href="$core_v2_urls.AcceptInvitation($invitation.InvitationKey)">Accept this invitation online</a>.
+  </p>
+</div>
+			]]>
+		</htmlBody>
+		<textBody>
+			<![CDATA[
+#set($user = $core_v2_user.Current)
+#set($group = $core_v2_group.Current)
+#set($invitation = $core_v2_userInvitation.Current)
+
+$user.DisplayName invited you to join $group.Name) at $core_v2_groupUrls.Group($group.Id).
+
+$email_utility.RenderText($invitation.Message)
+
+Accept this invitation at $core_v2_urls.AcceptInvitation($invitation.InvitationKey).
+			]]>
+		</textBody>
+	</emailTemplate>
+</emailTemplates>

@@ -1,0 +1,50 @@
+<emailTemplates>
+	<emailTemplate name="forum_nopermission">
+		<subject>
+			<![CDATA[
+Message not posted - permission denied
+			]]>
+		</subject>
+		<htmlBody>
+			<![CDATA[
+#set($groupMembership = $core_v2_groupMembership.Current)
+#set($group = $core_v2_group.Current)
+#set($message = $email_emailMessage.Current)
+
+<div style="font-family: arial; font-size: 10pt;">
+	You attempted to post a message to a forum to which you currently do not have permission to post.<br/><br/>
+#if($groupMembership || $group.GroupType == "Joinless")
+	Please <a href="$core_v2_groupUrls.Group($group.Id)">contact the group owner</a> if you believe that you should have permissions.
+#elseif($group.GroupType == "PublicOpen")
+	Please visit <a href="$core_v2_groupUrls.Group($group.Id)">$group.Name</a> and select "Join Group" in the banner area to obtain permission.
+#else
+	Please visit <a href="$core_v2_groupUrls.Group($group.Id)">$group.Name</a> and apply to join the group to obtain permission.
+#end
+	<div style="margin: 15px">
+		<b>Subject: $message.Subject</b><br/>
+		Body: $email_utility.RenderHtml($message.Body)
+	</div>
+</div>
+			]]>
+		</htmlBody>
+		<textBody>
+			<![CDATA[
+#set($groupMembership = $core_v2_groupMembership.Current)
+#set($group = $core_v2_group.Current)
+#set($message = $email_emailMessage.Current)
+
+You attempted to post a message to a forum to which you currently do not have permission to post.
+#if($groupMembership || $group.GroupType == "Joinless")
+Please vist $core_v2_groupUrls.Group($group.Id) to contact the group owner if you believe that you should have permissions.
+#elseif($group.GroupType == "PublicOpen")
+Please visit $core_v2_groupUrls.Group($group.Id) and select "Join Group" in the banner area to obtain permission.
+#else
+Please visit $core_v2_groupUrls.Group($group.Id) and apply to join the group to obtain permission.
+#end
+
+Subject: $message.Subject
+Body: $email_utility.RenderText($message.Body)
+			]]>
+		</textBody>
+	</emailTemplate>
+</emailTemplates>

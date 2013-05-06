@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<emailTemplates>
+  <emailTemplate name="abuse_notify_board_of_abusive_content">
+    <subject>
+      <![CDATA[
+Review needed for post in $core_v2_configuration.SiteName
+			]]>
+    </subject>
+    <htmlBody>
+      <![CDATA[
+#set($post = $core_v2_content.Current)
+#set($appeal = $core_v2_abuseAppeal.Current)
+#set($appealUrl = $core_v2_urls.AppealQueue("%{AbuseAppealId=$appeal.AppealId}", false))
+
+<div style="font-family: arial; font-size: 10pt;">
+	<div style="font-size: 12pt;">
+		<b><a href="$post.Url">$post.HtmlName('Email')</a>: Possibly abusive or spam Content</b>
+	</div>
+	<p>A post, $post.HtmlName('email'), in $post.Application.Container.HtmlName('Email') has been flagged as spam or abuse. It is locked and not editable by community members.</p>
+	<p>Please visit the page to review and take appropriate action: </p>
+	<div style="color: #7F7F7F; font-size: 8pt;">
+		<a href="$post.Url">Please visit the page to review the flagged content</a>.<br />
+		<a href="$appealUrl">Review the appeal</a>.
+	</div>
+</div>
+
+			]]>
+    </htmlBody>
+    <textBody>
+      <![CDATA[
+#set($post = $core_v2_content.Current)
+#set($appeal = $core_v2_abuseAppeal.Current)
+#set($appealUrl = $core_v2_urls.AppealQueue("%{AbuseAppealId=$appeal.AppealId}", false))
+
+Subject: Review needed for $post.HtmlName('Email') in $core_v2_configuration.SiteName
+Body:
+
+A post, $post.HtmlName('Email'), in $post.Application.Container.HtmlName('Email') has been flagged as spam or abuse. It is locked and not editable by community members.
+Please visit the page to review the flagged content: $post.Url
+Review the appeal: $appealUrl
+
+			]]>
+    </textBody>
+  </emailTemplate>
+</emailTemplates>

@@ -1,0 +1,53 @@
+<emailTemplates>
+	<emailTemplate name="media_comment_notifyowners">
+		<subject>
+			<![CDATA[
+$core_v2_gallery.Current.Name - New Comment: $email_utility.RenderText($core_v2_mediaComment.Current.Subject)
+			]]>
+		</subject>
+		<htmlBody>
+			<![CDATA[
+#set($comment = $core_v2_mediaComment.Current)
+#set($media = $core_v2_media.Current)
+#set($gallery = $core_v2_gallery.Current)
+
+<div style="font-family: arial; font-size: 10pt;">
+	<div style="font-size: 12pt;">
+		<b><a href="$core_v2_mediaUrls.Media($media.Id)">$media.Title</a>: New Comment</b>
+	</div>
+	<b>Current Status:</b>  #if(!$comment.IsApproved)Not#end Published<br/>
+	By $comment.Author.DisplayName<br/><br/>
+	<div>
+		$email_utility.RenderHtml($comment.Body)
+	</div>
+	<br/>
+	<div style="font-family: arial; color: #7F7F7F; font-size: 8pt;">
+		<a href="$core_v2_mediaUrls.Media($media.Id)">View the media gallery item online</a>.<br/>
+		To unsubscribe from only this thread, <a href="$core_v2_mediaUrls.Media($media.Id)">disable email notifications online</a>.
+	</div>
+</div>
+<p style="font-family: arial; color: #7F7F7F; font-size: 8pt;">
+    <a href="$core_v2_urls.ReportAbuse($core_v2_mediaUrls.Media($media.Id), $comment.CommentId, $comment.CommentContentTypeId)">Flag</a> this comment as spam/abuse.
+</p>
+			]]>
+		</htmlBody>
+		<textBody>
+			<![CDATA[
+#set($comment = $core_v2_mediaComment.Current)
+#set($media = $core_v2_media.Current)
+#set($gallery = $core_v2_gallery.Current)
+
+Commenter:  $comment.Author.DisplayName
+Media Gallery Item:  $email_utility.RenderHtml($media.Title)
+Link:  $core_v2_mediaUrls.Media($media.Id)
+Current Status: #if(!$comment.IsApproved)Not#end Published
+
+$email_utility.RenderText($comment.Body)
+
+--
+You were sent this email because you opted to receive email notifications when someone created a comment on $gallery.Name. 
+To unsubscribe, visit $core_v2_mediaUrls.Media($media.Id).
+			]]>
+		</textBody>
+	</emailTemplate>
+</emailTemplates>

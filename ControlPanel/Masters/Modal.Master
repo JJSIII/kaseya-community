@@ -1,0 +1,49 @@
+<%@ Master Language="C#" AutoEventWireup="true" %>
+
+<script runat="server">
+
+    protected override void OnInit(EventArgs e)
+    {
+        Telligent.Evolution.Components.CSContext.Current.IsModal = true;
+        Response.CacheControl = "no-cache";
+        Response.Cache.SetCacheability(HttpCacheability.NoCache);
+
+        base.OnInit(e);
+    }
+    
+</script>
+
+<!DOCTYPE html>
+<html lang="en">
+    <asp:ContentPlaceHolder id="HeaderRegion" runat="server">
+        <TEControl:Head runat="Server" ID="Head1">
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+            <TEControl:Script runat="server" ID="Script1"/>
+ 			<TEControl:Style id="UserStyles" runat="server" />
+			<TEControl:Style runat="server" Href="../style/ControlPanel.css" ID="Style3" />
+			<TEControl:Style runat="server" Href="../style/ControlPanelModal.css" />
+            <TEControl:JQuery runat="server" />
+			<asp:ContentPlaceHolder id="AdditionalScripts" runat="server" />
+        </TEControl:Head>
+    </asp:ContentPlaceHolder>
+	<body spellcheck="true" class="modal <%= Telligent.Evolution.Components.CSContext.Current.User.Profile.Language.ToLowerInvariant() %>">
+		<form runat="server">
+		    <TEControl:TelligentUtility runat="server" />
+			<TWC:Modal runat="server" CssClasses="CommonModal" TitleCssClasses="CommonModalTitle" CloseCssClasses="CommonModalClose" ContentCssClasses="CommonModalContent" FooterCssClasses="CommonModalFooter" ResizeCssClasses="CommonModalResize" MaskCssClasses="CommonModalMask" LoadingUrl="~/utility/loading.htm" />			
+			<asp:ContentPlaceHolder id="bscr" runat="server" />
+				<div id="CommonOuter"><div id="Common">
+					<div id="CommonHeader">
+						<asp:ContentPlaceHolder id="bhcr" runat="server" />
+					</div>
+
+					<div id="CommonBody">
+    					<asp:ContentPlaceHolder id="bcr" runat="server" />
+					</div>
+				
+					<div id="CommonFooter">
+						<asp:ContentPlaceHolder id="BodyFooterRegion" runat="server" />
+					</div>
+				</div></div>
+		</form>
+	</body>
+</html>

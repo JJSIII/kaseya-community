@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Telligent.JobScheduler</name>
+    </assembly>
+    <members>
+        <member name="M:Telligent.JobScheduler.JobsManager.Schedule``1(System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Schedules the specified type for immediate execution.
+            </summary>
+            <typeparam name="T">The type to execute.  The type must implement the <see cref="T:Quartz.IJob"/> interface and contain a public, parameterless constructor.</typeparam>
+            <param name="data">The values given to the job when executed.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Telligent.JobScheduler.JobsManager.Schedule``1(System.DateTime,System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Schedules the specified type for execution at or after the given <see cref="T:System.DateTime"/>.
+            </summary>
+            <typeparam name="T">The type to execute.  The type must implement the <see cref="T:Quartz.IJob"/> interface and contain a public, parameterless constructor.</typeparam>
+            <param name="jobStartTimeUtc">The <see cref="T:System.DateTime"/>, in UTC, when the job can be executed.</param>
+            <param name="data">The values given to the job when executed.</param>
+        </member>
+        <member name="M:Telligent.JobScheduler.JobsManager.GetScheduler">
+            <summary>
+            This method will be obsolete in the future.  This method should not be called for any new development.
+            </summary>
+            <returns>The cron scheduler, if running.  Otherwise, null.</returns>
+        </member>
+        <member name="T:Telligent.JobScheduler.Hosting.RuntimeHost">
+            <summary>
+            An object used to host a <see cref="T:Telligent.JobScheduler.Hosting.RuntimeApplication"/>.  This class cannot be inherited.
+            </summary>
+        </member>
+        <member name="M:Telligent.JobScheduler.Hosting.RuntimeHost.Start">
+            <summary>
+            Starts the runtime.
+            </summary>
+            <returns>true if the runtime was started; otherwise, false.</returns>
+        </member>
+        <member name="M:Telligent.JobScheduler.Hosting.RuntimeHost.Start(System.TimeSpan)">
+            <summary>
+            Starts the runtime.  If the runtime fails to start in the time specified by the timeout parameter, a 
+            <see cref="T:System.TimeoutException"/> is raised.  Specify TimeSpan.Zero to allow unlimited time to start.
+            </summary>
+            <param name="timeout">The maximum allowed time the runtime has to start.  Specify TimeSpan.Zero to allow unlimited time to start.</param>
+            <returns>true if the runtime was started; otherwise, false.</returns>
+            <exception cref="T:System.TimeoutException"></exception>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:Telligent.JobScheduler.Hosting.RuntimeHost.Stop">
+            <summary>
+            Stops the runtime.
+            </summary>
+        </member>
+        <member name="M:Telligent.JobScheduler.Hosting.RuntimeHost.Stop(System.TimeSpan)">
+            <summary>
+            Stops the runtime.  If the runtime fails to stop in the time specified by the timeout parameter, a 
+            <see cref="T:System.TimeoutException"/> is raised.
+            </summary>
+            <param name="timeout">The maximum allowed time the runtime has to stop.  Specify TimeSpan.Zero to allow unlimited time to stop.</param>
+            <returns>true if the runtime was stopped; otherwise, false.</returns>
+            <exception cref="T:System.TimeoutException"></exception>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="P:Telligent.JobScheduler.Hosting.RuntimeHost.Id">
+            <summary>
+            Gets the unique identifier for the runtime instance.
+            </summary>
+        </member>
+        <member name="P:Telligent.JobScheduler.Hosting.RuntimeHost.ApplicationName">
+            <summary>
+            Gets the name of the application the runtime is hosting.
+            </summary>
+        </member>
+        <member name="M:Telligent.JobScheduler.Hosting.RuntimeApplication.OnStarting(Telligent.JobScheduler.Hosting.RuntimeContext)">
+            <summary>
+            Raises the <see cref="T:Telligent.JobScheduler.Hosting.RuntimeApplication"/>.Starting event.
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:Telligent.JobScheduler.Hosting.RuntimeApplication.OnStarted(Telligent.JobScheduler.Hosting.RuntimeContext)">
+            <summary>
+            Raises the <see cref="T:Telligent.JobScheduler.Hosting.RuntimeApplication"/>.Started event.
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:Telligent.JobScheduler.Hosting.RuntimeApplication.OnStopping(Telligent.JobScheduler.Hosting.RuntimeContext)">
+            <summary>
+            Raises the <see cref="T:Telligent.JobScheduler.Hosting.RuntimeApplication"/>.Stopping event.
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:Telligent.JobScheduler.Hosting.RuntimeApplication.OnStopped(Telligent.JobScheduler.Hosting.RuntimeContext)">
+            <summary>
+            Raises the <see cref="T:Telligent.JobScheduler.Hosting.RuntimeApplication"/>.Stopped event.
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="E:Telligent.JobScheduler.Hosting.RuntimeApplication.Starting">
+            <summary>
+            Occurs when the runtime is starting.
+            </summary>
+        </member>
+        <member name="E:Telligent.JobScheduler.Hosting.RuntimeApplication.Started">
+            <summary>
+            Occurs when the runtime has started.
+            </summary>
+        </member>
+        <member name="E:Telligent.JobScheduler.Hosting.RuntimeApplication.Stopping">
+            <summary>
+            Occurs when the runtime is stopping.
+            </summary>
+        </member>
+        <member name="E:Telligent.JobScheduler.Hosting.RuntimeApplication.Stopped">
+            <summary>
+            Occurs when the runtime has stopped.
+            </summary>
+        </member>
+        <member name="T:Telligent.JobScheduler.Hosting.RuntimeContext">
+            <summary>
+            Contains information about the runtime that created this context.  This class cannot be inherited.
+            </summary>
+        </member>
+        <member name="P:Telligent.JobScheduler.Hosting.RuntimeContext.ApplicationName">
+            <summary>
+            Gets the name of the <see cref="T:Telligent.JobScheduler.Hosting.RuntimeApplication"/> the host is running.
+            </summary>
+        </member>
+        <member name="P:Telligent.JobScheduler.Hosting.RuntimeContext.RuntimeId">
+            <summary>
+            Gets the runtime identifier the context belongs to.
+            </summary>
+        </member>
+        <member name="P:Telligent.JobScheduler.Hosting.RuntimeContext.State">
+            <summary>
+            Gets the executing state of the runtime when the context was created.
+            </summary>
+        </member>
+    </members>
+</doc>

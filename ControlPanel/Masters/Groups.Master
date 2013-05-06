@@ -1,0 +1,95 @@
+<%@ Master Language="C#" AutoEventWireup="true" MasterPageFile="ControlPanel.Master" %>
+<%@ Import Namespace="Telligent.Evolution.Components" %>
+
+<script runat="server" type="text/C#">
+    public static bool HasAccessToMultipleGroups()
+    {
+        return GetGroup() == null;
+    }
+
+    private static Telligent.Evolution.Components.Group GetGroup()
+    {
+        Telligent.Evolution.Components.Group group = null;
+				Telligent.Evolution.Components.GroupQuery query = new Telligent.Evolution.Components.GroupQuery();
+				query.PageSize = 1;
+				query.IgnorePermissions = true;
+
+				PagedSet<Telligent.Evolution.Components.Group> pagedGroups = Telligent.Common.Services.Get<IGroupService>().GetGroups(query);
+				if (pagedGroups.Items != null && pagedGroups.Items.Count == 1)
+					group = pagedGroups.Items[0];
+
+        return group;
+    }
+</script>
+
+<asp:Content ContentPlaceHolderID="PageTitleRegion" runat="server">
+    <TEControl:ConditionalContent runat="server">
+        <ContentConditions><TEControl:CustomCondition runat="server" CustomResult='<%# Context.Request.RawUrl.Contains("switch.aspx") %>' /></ContentConditions>
+        <TrueContentTemplate><CP:ResourceControl runat="server" ResourceName="CP_Group_GroupToManage" /></TrueContentTemplate>
+        <FalseContentTemplate><CP:ResourceControl ID="ResourceControl2" runat="server" ResourceName="Managing" /> <TEControl:GroupData runat="server" Property="Name" Text="'{0}'" Encoding="HTML" /></FalseContentTemplate>
+    </TEControl:ConditionalContent>
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="PanelTitle" runat="server">
+    <TEControl:ConditionalContent runat="server">
+        <ContentConditions><TEControl:CustomCondition runat="server" CustomResult='<%# Context.Request.RawUrl.Contains("switch.aspx") %>' /></ContentConditions>
+        <TrueContentTemplate><CP:ResourceControl runat="server" ResourceName="CP_Group_GroupToManage" /></TrueContentTemplate>
+        <FalseContentTemplate>
+            <CP:ResourceControl ID="ResourceControl2" runat="server" ResourceName="Managing" /> <TEControl:GroupData runat="server" Property="Name" Text="'{0}'" Encoding="HTML" />
+            <TEControl:PlaceHolder runat="server">
+                <DisplayConditions><TEControl:CustomCondition runat="server" CustomResult='<%# HasAccessToMultipleGroups() %>' /></DisplayConditions>
+                <ContentTemplate><span>(<asp:HyperLink runat="server" NavigateUrl="~/ControlPanel/Groups/switch.aspx">choose group</asp:HyperLink>)</span></ContentTemplate>
+            </TEControl:PlaceHolder>    
+        </FalseContentTemplate>
+    </TEControl:ConditionalContent>
+</asp:Content>
+
+<asp:Content runat="server" ContentPlaceHolderID="TopLeft">
+    <asp:HyperLink runat="server" NavigateUrl="~/ControlPanel/"><CP:ResourceControl ID="ResourceControl1" runat="server" ResourceName="Dashboard" /></asp:HyperLink>
+    <span class="pipe">&raquo;</span>
+    <asp:HyperLink runat="server" NavigateUrl="~/ControlPanel/Groups/switch.aspx"><CP:ResourceControl runat="server" ResourceName="CP_MyGroups_Title" /></asp:HyperLink>
+    <TEControl:GroupData runat="server" Property="Name" Encoding="HTML">
+        <DisplayConditions Operator="Not">
+            <TEControl:CustomCondition runat="server" CustomResult='<%# Context.Request.RawUrl.Contains("switch.aspx") %>' />
+        </DisplayConditions>
+        <LeaderTemplate> <span class="pipe">&raquo;</span> <a href="default.aspx"></LeaderTemplate>
+        <TrailerTemplate></a></TrailerTemplate>
+    </TEControl:GroupData>
+    <asp:ContentPlaceHolder runat="server" ID="TopLeft">
+        <span class="pipe">&raquo;</span>
+        <asp:ContentPlaceHolder id="DescriptionRegion" runat="server" />
+    </asp:ContentPlaceHolder>
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="TopRight" runat="server">
+    <TEControl:GroupData runat="server" LinkTo="HomePage">
+        <DisplayConditions Operator="Not">
+            <TEControl:CustomCondition runat="server" CustomResult='<%# Context.Request.RawUrl.Contains("switch.aspx") %>' />
+        </DisplayConditions>
+        <ContentTemplate><CP:ResourceControl runat="server" ResourceName="CP_Group_GoToGroup" /></ContentTemplate>
+        <TrailerTemplate> <CP:ResourceControl runat="server" ResourceName="CP_Separator" /> </TrailerTemplate>
+    </TEControl:GroupData>
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="PanelNavigation" runat="server" >
+    <CP:ControlPanelSelectedNavigation runat="server" SelectedTab="Groups" />
+    <asp:ContentPlaceHolder ID="PanelNavigation" runat="server">
+        <div class="DashboardMenuArea">
+            <CP:NavigationDropDownList CssClass="DashboardMenu" OpenCssClass="DashboardMenuOpen" runat="server" FileName="~/ControlPanel/DashboardMenu.config" MenuGroupCssClass="DashboardContextMenuGroup" MenuItemCssClass="DashboardContextMenuItem" MenuItemSelectedCssClass="DashboardContextMenuItemHover" MenuItemIconWidth="20" MenuItemIconHeight="20" MenuDirection="Down" />
+        </div>
+	    <CP:ControlPanelNavigationTabs runat="server" Filename="Groups/NavBar.config"
+	        PanesCssClass="NavPane"
+	        TabSetCssClass="NavPaneTabSet"
+	        TabCssClasses="NavPaneTab"
+	        TabSelectedCssClasses="NavPaneTabSelected"
+	        TabHoverCssClasses="NavPaneTabHover"
+	        ChildCssClass="ChildNavPaneTabSet"
+	        ChildTabCssClasses="ChildNavPaneTab"
+	        ChildTabSelectedCssClasses="ChildNavPaneTabSelected"
+	        ChildTabHoverCssClasses="ChildNavPaneTabHover" />
+    </asp:ContentPlaceHolder>
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="TaskRegion" runat="server">
+    <asp:ContentPlaceHolder runat="server" id="TaskRegion" />
+</asp:Content>

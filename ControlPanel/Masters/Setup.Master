@@ -1,0 +1,28 @@
+<%@ Master Language="C#" AutoEventWireup="true" MasterPageFile="ControlPanel.Master" %>
+
+<asp:Content ContentPlaceHolderID="PageTitleRegion" runat="server">
+    <asp:ContentPlaceHolder id="PageTitleRegion" runat="server"><CP:ResourceControl runat="server" ResourceName="CP_AdminDashboard" /></asp:ContentPlaceHolder>
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="PanelTitle" runat="server">
+    <asp:ContentPlaceHolder id="PanelTitle" runat="server"><CP:ResourceControl runat="server" ResourceName="CP_AdminDashboard" /></asp:ContentPlaceHolder>
+</asp:Content>
+
+<asp:Content runat="server" ContentPlaceHolderID="TopLeft">
+    <asp:HyperLink runat="server" NavigateUrl="~/ControlPanel/"><CP:ResourceControl runat="server" ResourceName="CP_Tabs_Dashboard" /></asp:HyperLink>
+    <span class="pipe">&raquo;</span>
+    <asp:HyperLink runat="server" NavigateUrl="~/ControlPanel/setup.aspx"><CP:ResourceControl runat="server" ResourceName="CP_Tabs_Administration" /></asp:HyperLink>
+    <asp:ContentPlaceHolder runat="server" ID="TopLeft">
+        <span class="pipe">&raquo;</span>
+        <asp:ContentPlaceHolder id="DescriptionRegion" runat="server" />
+    </asp:ContentPlaceHolder>
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="PanelNavigation" runat="server" >
+    <CP:ControlPanelSelectedNavigation runat="server" SelectedTab="Setup" />
+    <asp:ContentPlaceHolder ID="PanelNavigation" runat="server"></asp:ContentPlaceHolder>
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="TaskRegion" runat="server">
+    <asp:ContentPlaceHolder runat="server" id="TaskRegion" />
+</asp:Content>

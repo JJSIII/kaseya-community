@@ -1,0 +1,34 @@
+<emailTemplates>
+	<emailTemplate name="follower_notification">
+		<subject>
+			<![CDATA[
+$core_v2_configuration.SiteName : $core_v2_user.Get("%{Id=$core_v2_follower.Current.FollowerId}").DisplayName is now following you
+			]]>
+		</subject>
+		<htmlBody>
+			<![CDATA[
+#set($follow = $core_v2_follower.Current)
+#set($followerUser = $core_v2_user.Get("%{Id=$follow.FollowerId}"))
+<div style="font-family: arial; font-size: 10pt;">
+  <p>
+    <b>$followerUser.DisplayName</b> is now following you on $core_v2_configuration.SiteName.
+  </p>
+  <p>
+    <a href="$core_v2_urls.Friends($follow.FollowingId)">View all of your $email_utility.SiteTerm("friends_lowercase") online</a>.
+  </p>
+</div>
+			]]>
+		</htmlBody>
+		<textBody>
+			<![CDATA[
+#set($follow = $core_v2_follower.Current)
+#set($followerUser = $core_v2_user.Get("%{Id=$follow.FollowerId}"))
+
+$followerUser.DisplayName is now following you on $core_v2_configuration.SiteName.
+
+To view your list of $email_utility.SiteTerm("friends_lowercase"), please visit $core_v2_urls.Friends($follow.FollowingId).
+
+			]]>
+		</textBody>
+	</emailTemplate>
+</emailTemplates>

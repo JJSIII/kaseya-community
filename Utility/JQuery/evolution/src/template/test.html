@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="template.js"></script>
+
+    <script type="text/html" id="t1">
+    <p>encoded string: <%: stringWithEmbeddedHtml %></p>
+    <p>non-encoded string: <%= stringWithEmbeddedHtml %></p>
+    <ul>
+    <% foreach(cars, function(car) { %>
+        <li>
+            <span>make: <%: car.make %></span>
+            <span>model: <%: car.model %></span>
+            <span>year: <%: car.year %></span>
+            <% if(car.year < 1980) { %>
+                <em>classic</em>
+            <% } %>
+        </li>
+    <% }); %>
+    </ul>
+    </script>
+
+    <script type="text/html" id="t2">
+    <p>Hello, <%: capitalize(name) %></p>
+    </script>
+
+    <script type="text/html" id="t3">
+    <p>encoded string: {%: stringWithEmbeddedHtml %}</p>
+    <p>non-encoded string: {%= stringWithEmbeddedHtml %}</p>
+    <ul>
+    {% foreach(cars, function(car) { %}
+        <li>
+            <span>make: {%: car.make %}</span>
+            <span>model: {%: car.model %}</span>
+            <span>year: {%: car.year %}</span>
+            {% if(car.year < 1980) { %}
+                <em>classic</em>
+            {% } %}
+        </li>
+    {% }); %}
+    </ul>
+    </script>
+
+    <script type="text/javascript">
+    jQuery(function($){
+        // template 1
+        var compiledTemplate1 = $.telligent.evolution.template.compile('t1');
+        $('#container1').html(compiledTemplate1({
+            name: 'Bob',
+            stringWithEmbeddedHtml: '<strong>hello</strong>',
+            cars: [
+                { make: 'Toyota', model: 'Prius', year: 2011 },
+                { make: 'Ford', model: 'Mustang', year: 1975 },
+                { make: 'Honda', model: 'Accord', year: 2012 },
+                { make: 'BMW', model: '328', year: 2010 }
+            ]
+        }));
+
+        // template 2 (with custom helpers)
+        var compiledTemplate2 = $.telligent.evolution.template.compile('t2', {
+            capitalize: function(val) {
+                return val.toUpperCase();
+            }
+        });
+        $('#container2').html(compiledTemplate2({
+            name: 'bob (should be capitalized)'
+        }));
+
+        // template 3 (with custom delimiters)
+        var compiledTemplate3 = $.telligent.evolution.template.compile('t3', {}, {
+            open: '{%',
+            close: '%}'
+        });
+        $('#container3').html(compiledTemplate3({
+            name: 'Bob',
+            stringWithEmbeddedHtml: '<strong>hello</strong>',
+            cars: [
+                { make: 'Toyota', model: 'Prius', year: 2011 },
+                { make: 'Ford', model: 'Mustang', year: 1975 },
+                { make: 'Honda', model: 'Accord', year: 2012 },
+                { make: 'BMW', model: '328', year: 2010 }
+            ]
+        }));
+    });
+    </script>
+</head>
+<body>
+    <h1>Template Test</h1>
+
+    <h2>With raw, encoded, eval, loops, branching, variables</h2>
+    <div id="container1"></div>
+
+    <h2>With custom helpers</h2>
+    <div id="container2"></div>
+
+    <h2>With custom delimiters</h2>
+    <div id="container3"></div>
+</body>
+</html>

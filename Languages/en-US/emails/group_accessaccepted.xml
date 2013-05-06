@@ -1,0 +1,35 @@
+<emailTemplates>
+	<emailTemplate name="group_accessaccepted">
+		<subject>
+			<![CDATA[
+$core_v2_configuration.SiteName: $email_utility.SiteTerm("group_propercase") membership approved: $core_v2_group.Current.Name
+			]]>
+		</subject>
+		<htmlBody>
+			<![CDATA[
+#set($group = $core_v2_group.Current)
+<div style="font-family: arial; font-size: 10pt;">
+	Your access request has been approved:<br/>
+	<b>$email_utility.SiteTerm("group_propercase")</b>: $email_utility.RenderHtml($group.Name)<br/>
+	<b>Total members</b>: $group.TotalMembers<br/>
+	<p>
+		$email_utility.SiteTerm("groups_propercase") are small sub-communities inside of your larger community to faciliate collaboration via blogs, forums, files, and wikis. <a href="$core_v2_groupUrls.Group($group.Id)">Join in the discussion</a>!
+	</p>
+</div>
+			]]>
+		</htmlBody>
+		<textBody>
+			<![CDATA[
+#set($group = $core_v2_group.Current)
+
+Your membership request has been approved:
+
+$email_utility.SiteTerm("group_propercase"): $group.Name
+Total members: $group.TotalMembers
+Link: $core_v2_groupUrls.Group($group.Id)
+
+$email_utility.SiteTerm("groups_propercase") are small sub-communities inside of your larger community to faciliate collaboration via blogs, forums, files, and wikis. Join in the discussion!
+			]]>
+		</textBody>
+	</emailTemplate>
+</emailTemplates>

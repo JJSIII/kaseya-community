@@ -1,0 +1,44 @@
+<emailTemplates>
+	<emailTemplate name="wikis_page_updated">
+		<subject>
+			<![CDATA[
+$core_v2_wikiPage.Current.Title: Revision notice
+			]]>
+		</subject>
+		<htmlBody>
+			<![CDATA[
+#set($page = $core_v2_wikiPage.Current)
+#set($previousRevision = $page.RevisionNumber - 1)
+
+<div style="font-family: arial; font-size: 10pt;">
+	<div style="font-size: 12pt;">
+		<b><a href="$core_v2_wikiUrls.Page($page.Id)">$page.Title</a>: Revision #$page.RevisionNumber</b>
+	</div>
+	Edited by $page.User.DisplayName<br/>
+<div>
+	$email_utility.RenderHtml($page)
+</div>
+<div style="font-family: arial; font-size: 8pt; color=#7F7F7F;">
+	<a href="$core_v2_wikiUrls.Page($page.Id)">View this post online</a> or <a href="$core_v2_wikiUrls.Compare($page.Id, $previousRevision, 0)">compare this page with earlier revisions</a>.
+</div>
+<p style="font-family: arial; color: #7F7F7F; font-size: 8pt;">
+    <a href="$core_v2_urls.ReportAbuse($core_v2_wikiUrls.Page($page.Id), $page.ContentId, $page.ContentTypeId)">Flag</a> this page as spam/abuse.
+</p>
+			]]>
+		</htmlBody>
+		<textBody>
+			<![CDATA[
+#set($page = $core_v2_wikiPage.Current)
+
+A new revision of the wiki page has been made:
+
+Wiki Page: $page.Title
+Author: $page.User.DisplayName
+Posted to: $core_v2_wiki.Current.Name
+Link: $core_v2_wikiUrls.Page($page.Id)
+
+$email_utility.RenderText($page)
+			]]>
+		</textBody>
+	</emailTemplate>
+</emailTemplates>

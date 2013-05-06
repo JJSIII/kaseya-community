@@ -1,0 +1,42 @@
+<emailTemplates>
+	<emailTemplate name="forum_post_mailgateway_awaitingapproval">
+		<subject>
+			<![CDATA[
+#set($post = $core_v2_forumReply.Current)
+#if(!$post)
+#set($post = $core_v2_forumThread.Current)
+#end
+$core_v2_forum.Get($post.ForumId).Name post awaiting approval: $post.Subject
+			]]>
+		</subject>
+		<htmlBody>
+			<![CDATA[
+#set($post = $core_v2_forumReply.Current)
+#if(!$post)
+#set($post = $core_v2_forumThread.Current)
+#end
+
+<div style="font-family: arial; font-size: 10pt;"><p>
+	Your post is awaiting approval by a moderator.  Once it is approved, it will be viewable online and emailed to subscribers.<br/><br/>
+	<div style="margin: 15px; background-color: #F7F7F7; border-width: 5px; border-color: #F7F7F7; border-style: solid; color: #000000; width: 95%">
+		<b>Subject:</b> $email_utility.RenderHtml($post.Subject)<br/>
+		<b>Posted to:</b> $email_utility.RenderHtml($core_v2_forum.Get($post.ForumId).Name)
+	</div>
+</p></div>
+			]]>
+		</htmlBody>
+		<textBody>
+			<![CDATA[
+#set($post = $core_v2_forumReply.Current)
+#if(!$post)
+#set($post = $core_v2_forumThread.Current)
+#end
+
+Your post is awaiting approval by a moderator.  Once it is approved, it will be viewable online and emailed to subscribers.
+
+Subject: $email_utility.RenderText($post.Subject)
+Posted to: $email_utility.RenderText($core_v2_forum.Get($post.ForumId).Name)
+			]]>
+		</textBody>
+	</emailTemplate>
+</emailTemplates>

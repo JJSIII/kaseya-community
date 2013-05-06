@@ -1,0 +1,103 @@
+<%@ Master Language="C#" AutoEventWireup="true" %>
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+	<meta http-equiv="X-UA-Compatible" content="IE=10; IE=9; IE=8" />
+    <title>
+        <asp:ContentPlaceHolder ID="PageTitleRegion" runat="server">
+            <CP:ResourceControl ID="HeaderTitle" runat="server" ResourceName="Admin_Title" />
+        </asp:ContentPlaceHolder>
+    </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <TEControl:Style ID="UserStyles" runat="server" />
+    <TEControl:Style ID="Style2" runat="server" Href="../style/controlpanel.css" />
+    <TEControl:Script ID="Script2" runat="server" Src="../utility/global.js" />
+    <TEControl:JQuery ID="JQuery" runat="server" />
+    <asp:ContentPlaceHolder ID="StyleRegion" runat="server" />
+    <!--[if lte IE 6]>
+            <link type="text/css" rel="stylesheet" href="../style/ie6.css" media="screen,print" />
+        <![endif]-->
+</head>
+<body spellcheck="true" class="<%= Telligent.Evolution.Components.CSContext.Current.User.Profile.Language.ToLowerInvariant() %>">
+    <form runat="server" id="AdminForm">
+    <TEControl:TelligentUtility runat="server" />
+    <TWC:Modal runat="server" CssClasses="CommonModal" TitleCssClasses="CommonModalTitle"
+        CloseCssClasses="CommonModalClose" ContentCssClasses="CommonModalContent" FooterCssClasses="CommonModalFooter"
+        ResizeCssClasses="CommonModalResize" MaskCssClasses="CommonModalMask" LoadingUrl="~/utility/loading.htm" ZIndex="200001" />
+    <div id="CommonOuter">
+        <div id="Common">
+            <div class="CommonTitleBar">
+                <div align="center">
+                    <CP:LicenseCheck runat="server" />
+                </div>
+                <div class="CommonTitleBarTitleAreaContainerLeft">
+                    <table cellspacing="0" border="0" cellpadding="0" height="90">
+                        <tr>
+                            <td style="vertical-align: middle;">
+                                <h1 class="CommonTitleBarTitle">
+                                    <asp:ContentPlaceHolder ID="PanelTitle" runat="server">
+                                        <CP:ResourceControl runat="server" ResourceName="CP" />
+                                    </asp:ContentPlaceHolder>
+                                </h1>
+                                <div class="CommonApplicationBar">
+                                    <asp:ContentPlaceHolder ID="TopLeft" runat="server" />
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="CommonTitleBarTitleAreaContainerRight">
+                    <span class="Left">
+                        <TEControl:UserData runat="server" UseAccessingUser="true" LinkTo="Profile" LinkCssClass="internal-link view-user-profile">
+                            <DisplayConditions><TEControl:CSContextPropertyValueComparison ComparisonProperty="Impersonator" Operator="IsSetOrTrue" runat="server" /></DisplayConditions>
+                            <LeaderTemplate><span class="user-name"></LeaderTemplate>
+                            <ContentTemplate><span></span><TEControl:UserData Property="DisplayName" runat="server" /></ContentTemplate>
+                            <TrailerTemplate>
+                                <span style="font-size: 12px; color: #555;"><TEControl:UserData Property="DisplayName" UseImpersonator="true" Text="({0})" runat="server" /></span></span>
+                                <CP:ResourceControl runat="server" ResourceName="CP_Separator" />
+                            </TrailerTemplate>
+                        </TEControl:UserData>
+                        <TEControl:UserData UseAccessingUser="true" ResourceName="CP_LogOut"
+                            ResourceFile="ControlPanelResources.xml" LinkTo="Logout" runat="server">
+                            <ContentTemplate>
+                                <TEControl:ConditionalContent runat="server">
+                                    <ContentConditions><TEControl:CSContextPropertyValueComparison ComparisonProperty="Impersonator" Operator="IsSetOrTrue" runat="server" /></ContentConditions>
+                                    <TrueContentTemplate><TEControl:ResourceControl runat="server" ResourceName="StopImpersonating" /></TrueContentTemplate>
+                                    <FalseContentTemplate><TEControl:ResourceControl runat="server" ResourceName="logout" /></FalseContentTemplate>
+                                </TEControl:ConditionalContent>
+                            </ContentTemplate>
+                            <TrailerTemplate><CP:ResourceControl runat="server" ResourceName="CP_Separator" /></TrailerTemplate>
+                        </TEControl:UserData>
+                        <TEControl:UserData UseAccessingUser="true" runat="server" ResourceName="CP_Help"
+                            ResourceFile="ControlPanelResources.xml" LinkTo="FAQ" />
+                    </span>
+                    <asp:ContentPlaceHolder ID="TopRight" runat="server" />
+                    <CP:Href runat="server" NavigateUrl="~/">
+                            <CP:ResourceControl runat="server" ResourceName="CP_ReturnToSite" />
+                    </CP:Href>
+                </div>
+                <div class="CommonTitleBarTitleAreaPoweredBy">
+                    <a href="http://telligent.com/">
+                        <TEControl:Image ImageUrl="~/controlpanel/images/powered-by-telligent.gif" runat="server" /></a>
+                </div>
+                <div style="clear: both;">
+                </div>
+            </div>
+            <div class="CommonPanelNavigation">
+                <asp:ContentPlaceHolder ID="PanelNavigation" runat="server" />
+                <span style="clear: both;"></span>
+            </div>
+            <asp:ContentPlaceHolder ID="OuterTaskRegion" runat="server">
+                <div class="CommonContentArea">
+                    <div class="CommonContent">
+                        <asp:ContentPlaceHolder ID="TaskRegion" runat="server" />
+                    </div>
+                </div>
+            </asp:ContentPlaceHolder>
+            <div id="ControlPanelFooter">
+            </div>
+        </div>
+    </div>
+    </form>
+</body>
+</html>

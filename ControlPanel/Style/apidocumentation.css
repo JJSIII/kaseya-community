@@ -1,0 +1,264 @@
+﻿body {
+    text-align: left;
+    font-size: 12px;
+    font-family: Helvetica, Arial, sans-serif;
+    color: #333;
+    padding: 0px;
+    margin: 0px;
+    }
+div.navigation {
+    float: left;
+    width: 250px;
+    position: fixed;
+    max-height: 98%;
+    overflow: auto;
+    padding: 10px;
+    padding-top: 0px;
+    }
+    div.navigation select {
+        width: 90%;
+        }
+    div.navigation ul {
+        list-style: none;
+        padding: 5px;
+        padding-bottom: 0px;
+        margin: 0px;
+        }
+        div.navigation ul li {
+            list-style: none;
+            }
+        div.navigation ul li a {
+            text-decoration: none;
+            color: #000;
+            display: block;
+            padding: 1px;
+            }
+        div.navigation ul li a:hover {
+            background-color: #eee;
+            color: #333;
+            }
+        div.navigation ul li a:hover,
+        div.navigation ul li a:visited {
+            text-decoration: none;
+            color: #333;
+            }
+    div.navigation h2, div.navigation h3, div.navigation h4 {
+        padding: 0px;
+        margin: 0px;
+        }
+    div.navigation h2 a, div.navigation h4 a {
+        color: #333;
+        text-decoration: none;
+        }
+    div.navigation h2 {
+        font-size: 1.5em;
+        padding: 0px;
+        margin-top: 20px;
+        margin-bottom: 7px;
+        }
+    div.navigation h4 {
+        padding: 5px;
+        padding-top: 10px;
+        font-size: 1.1em;
+        }
+    div.navigation optgroup {
+       font-family: Helvetica, Arial, sans-serif;
+       font-weight: bold;
+       font-style: normal;
+       font-size: 10pt;
+       }
+
+
+div.content {
+    padding: 30px;
+    padding-top: 20px;
+    margin-left: 270px;
+    }
+    div.content ul {
+        list-style: none;
+        padding: 0px;
+        margin: 10px 0px 0px 10px;
+        }
+        div.content ul li {
+            padding: 5px;
+            }
+        div.content ul li a {
+            text-decoration: none;
+            color: #000;
+            display: block;
+            padding: 0px;
+            margin: 0px;
+            width: 50%;
+            font-weight: bold;
+            }
+            div.content ul li a:hover {
+                text-decoration: underline;
+                }
+    div.content h1 {
+        font-size: 30px;
+        margin: 0px;
+        padding: 0px;
+        color: #333;
+        margin-bottom: 20px;
+        }
+    div.content h2 {
+        font-weight: bold;
+        font-size: 18px;
+        color: #fff;
+        background-color: #777;
+        padding: 3px;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+
+        }
+    div.content h3 {
+        font-size: 20px;
+        margin: 0px;
+        padding-top: 20px;
+        }
+    div.content h4 {
+        font-weight: normal;
+        font-style: italic;
+        font-size: 13px;
+        }
+        div.content h4.OverloadHeading {
+            font-weight: bold;
+            font-style: normal;
+            font-size: 15px;
+            }
+pre,
+p.code {
+    margin-left: 30px;
+    font-family: Consolas, Monaco, 'Courier New', Monospace;
+    background-color: #E8E8E8;
+    padding: 10px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    }
+span.code
+{
+	font-family: Consolas, Monaco, 'Courier New', Monospace;
+	font-weight: bold;
+}
+div.content ul.parameters
+{
+	list-style-type: disc;
+	margin: 0;
+	padding: 4px 0 0 2em;
+}
+div.content ul.parameters li
+{
+	padding: 4px 0;
+	margin: 0;
+}
+
+div.Member {
+    border-bottom: 1px solid #DDD;
+    padding-bottom: 10px;
+    }
+    div.MemberBody, p.MemberBody {
+        padding-left: 30px;
+        }
+
+table {
+    width: 100%;
+    }
+    div.MemberBody table {
+        border-left: 30px solid #fff;
+        }
+    table td, table th {
+        padding: 6px;
+        text-align: left;
+        }
+    table td {
+        }
+    table th {
+        color: #000;
+        font-weight: bold;
+        font-size: 11px;
+        }
+    table tr.oddrow {
+        background-color: #EEE;
+        }
+
+.select_searcher {
+    padding-bottom: 6px;
+    overflow: hidden;
+    margin-left: 10px;
+    margin-right: 10px;
+    border: 1px solid #777;
+    border-top: 1px solid #fff;
+    position: relative;
+    top: -1px;
+    border-radius: 0px 0px 5px 5px;
+    }
+div.navigation input {
+    border-radius: 20px;
+    padding: 3px 7px 3px 7px;
+    font-size: 11px;
+    font-family: Helvetica, Arial, Sans-Serif;
+    border: 1px solid #BBB;
+    outline-width: 0;
+    margin: 0px;
+    }
+    div.navigation input:hover,
+    div.navigation input:focus {
+        border: 1px solid #777;
+        }            
+div.navigation ul.select_searcher_options {
+    padding: 0px;
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    font-size: 12px;
+    }
+    div.navigation ul.select_searcher_options h4 {
+        margin: 0px;
+        font-weight: bold;
+        padding: 0px;
+        padding: 10px 6px 4px 6px;
+        }
+    div.navigation ul.select_searcher_options ul {
+        margin: 0px;
+        padding: 0px 6px 0px 6px;
+        }
+    div.navigation ul.select_searcher_options li {
+        list-style: none;
+        margin: 0px;
+        padding: 0px;
+        }
+        div.navigation ul.select_searcher_options li a {
+            display: block;
+            padding: 3px 6px 3px 6px;
+            font-size: 11px;
+        }
+        
+    div.navigation ul.select_searcher_options a:hover {
+        background-color: #999;
+        color: #fff;
+        }
+    div.navigation ul.select_searcher_options a.highlight {
+        background-color: #777777;
+        color: #fff;
+        }
+        
+   div.navigation a.clear {
+        background-color: #CCC;
+        display: block;
+        width: 16px;
+        height: 16px;
+        text-align: center;
+        line-height: 13px;
+        font-weight: bold;
+        border-radius: 20px;
+        color: #fff;
+        text-decoration: none;
+        position: absolute;
+        top: 3px;
+        right: -13px;
+        }
+        div.navigation a.clear:hover {
+            background-color: #777;
+            }

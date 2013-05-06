@@ -1,0 +1,34 @@
+<emailTemplates>
+	<emailTemplate name="blog_confirmsubscription">
+		<subject>
+			<![CDATA[
+$core_v2_blog.Current.Name: Subscription confirmation
+			]]>
+		</subject>
+		<htmlBody>
+			<![CDATA[
+#set($blog = $core_v2_blog.Current)
+#set($user = $core_v2_user.Current)
+
+<div style="font-family: arial; font-size: 10pt;">
+	<p>
+		Please <a href="$core_v2_blogUrls.SubscriptionConfirmation($blog.Id, $core_v2_blog.GetSubscriptionId($user.PrivateEmail, $blog.Id))">confirm your subscription</a> to $blog.Name.
+	</p>
+	<p>
+		If you did not request this subscription or for whatever reason decide you do not wish to receive email notifications about $blog.Name, please just disregard this email.
+	</p>
+</div>
+			]]>
+		</htmlBody>
+		<textBody>
+			<![CDATA[
+#set($blog = $core_v2_blog.Current)
+#set($user = $core_v2_user.Current)
+
+Please confirm your subscription to $core_v2_blogUrls.SubscriptionConfirmation($blog.Id, $core_v2_blog.GetSubscriptionId($user.PrivateEmail, $blog.Id)).
+
+If you did not request this subscription or for whatever reason decide you do not wish to receive email notifications of new posts, please just disregard this email.
+			]]>
+		</textBody>
+	</emailTemplate>
+</emailTemplates>

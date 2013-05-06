@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<emailTemplates>
+  <emailTemplate name="abuse_notify_board_of_appeals">
+    <subject>
+      <![CDATA[
+Review needed on an appeal in $core_v2_configuration.SiteName
+			]]>
+    </subject>
+    <htmlBody>
+      <![CDATA[
+#set($post = $core_v2_content.Current)
+#set($author = $core_v2_user.Get("%{Id=$post.CreatedByUserId}"))
+#set($appeal = $core_v2_abuseAppeal.Current)
+#set($params = "%{}")
+$params.Add("AbuseAppealId", $appeal.AppealId)
+#if ($appeal.Content && $appeal.Content.Application && $appeal.Content.Application.Container)
+	$params.Add("ContainerId", $appeal.Content.Application.Container.ContainerId)
+#end
+#set($appealUrl = $core_v2_urls.AppealQueue($params, false))
+ 
+<div style="font-family: arial; font-size: 10pt;">
+    <p>The item, <b>$post.HtmlName('')</b>, in <a href="$post.Application.Container.Url">$post.Application.Container.HtmlName('')</a> has been flagged as abuse and no longer appears on the site.</p>
+    <p>The author, $author.DisplayName, has appealed the decision:
+        <p style="color: #7F7F7F;">
+		    $appeal.AuthorResponse
+	    </p>
+    </p>
+    #if($post.ContentTypeId == $core_v2_wikiPage.ContentTypeId)
+		Please visit <a href="$post.Url">$post.HtmlName('')</a> to clear the abuse status and unlock the page or to confirm and delete the wiki page.
+	#else
+		Please visit the <a href="$appealUrl">queue</a> of open appeals to review the author's remarks and make a final decision.
+	#end
+</div>
+			]]>
+    </htmlBody>
+    <textBody>
+      <![CDATA[
+#set($post = $core_v2_content.Current)
+#set($author = $core_v2_user.Get("%{Id=$post.CreatedByUserId}"))
+#set($appeal = $core_v2_abuseAppeal.Current)
+#set($params = "%{}")
+$params.Add("AbuseAppealId", $appeal.AppealId)
+#if ($appeal.Content && $appeal.Content.Application && $appeal.Content.Application.Container)
+	$params.Add("ContainerId", $appeal.Content.Application.Container.ContainerId)
+#end
+#set($appealUrl = $core_v2_urls.AppealQueue($params, false))
+
+From: Abuse Service
+Body:
+The item, $post.HtmlName(''), in $post.Application.Container.HtmlName('') has been flagged as abuse and no longer appears on the site.
+ 
+The author, $author.DisplayName, has appealed the decision:
+ 
+$email_utility.RenderText($appeal.AuthorResponse)
+ 
+#if($post.ContentTypeId == $core_v2_wikiPage.ContentTypeId)
+Please visit the wiki page to clear the abuse status and unlock the page or to confirm and delete the wiki page: $post.Url
+#else
+Please visit the queue of open appeals to review the author's remarks and make a final decision: $appealUrl
+#end
+			]]>
+    </textBody>
+  </emailTemplate>
+</emailTemplates>

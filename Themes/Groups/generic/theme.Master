@@ -1,0 +1,62 @@
+<%@ Master Language="C#" %>
+<%@ Import Namespace="Telligent.Evolution.Components" %>
+
+<script runat="server">
+	protected static readonly ISecurityService SecurityService = Telligent.Common.Services.Get<ISecurityService>();
+
+    protected override void OnLoad(EventArgs e)
+    {
+        CSContext csContext = CSControlUtility.Instance().GetCurrentCSContext(Page);
+        Telligent.Evolution.Components.Group group = CSControlUtility.Instance().GetCurrentGroup(this);
+        if (group != null)
+        {
+            if (group.GroupType == GroupType.PrivateUnlisted && !SecurityService.For(group).Does(CSContext.Current.User).Have(GroupPermission.ReadGroup))
+                CSControlUtility.Instance().LeaveSecureConnection(Globals.GetSiteUrls().Message(CSExceptionType.AccessDenied), this.Context);
+            else if (group.GroupType == GroupType.PrivateListed && !SecurityService.For(group).Does(CSContext.Current.User).Have(GroupPermission.ReadGroup))
+            {
+                if (SecurityService.For(group).Does(csContext.User).Have(GroupPermission.JoinGroupByRequest))
+                {
+                    if (!group.IsMember(csContext.User, GroupMembershipType.PendingMember))
+                    {
+                    	string accessDenied = Globals.GetSiteUrls().Message(CSExceptionType.AccessDenied);
+						Page.ClientScript.RegisterStartupScript(typeof(Page), "membership-request", string.Format("window.setTimeout(function() {{ eval('{0}'); }}, 249);", JavaScript.Encode(ModalHelper.BuildHandler(this.Page, GroupUrls.Instance().RequestMembership(group), 560, 300, "new Function('result', 'if (!result) { window.location = \"" + accessDenied + "\"; };')", false))), true);
+                        content.Visible = false;
+                    }
+                    else
+                        CSControlUtility.Instance().LeaveSecureConnection(Globals.GetSiteUrls().Message(CSExceptionType.MembershipPending), this.Context);
+                }
+                else
+                    CSControlUtility.Instance().LeaveSecureConnection(Globals.GetSiteUrls().Message(CSExceptionType.AccessDenied), this.Context);
+            }
+		}
+
+        base.OnLoad(e);
+	}
+</script>
+
+<!DOCTYPE html>
+<html lang="en">
+    <head runat="server">
+        <meta http-equiv="X-UA-Compatible" content="IE=10; IE=9; IE=8" />
+        <TEControl:Head runat="Server" EnableDefaultFavicon="false">
+            <TEControl:Style runat="server" Href="~/themes/generic/css/layout.css" Media="screen" EnableCssAdjustmentsForDownlevelBrowsers="true" EnableFileDateVersioning="true" />
+        </TEControl:Head>
+        <TEControl:JQuery runat="server" />
+        <TEControl:JQueryGlow runat="server" />
+        <TEControl:JQueryEvolution runat="server" />
+    </head>
+	<body spellcheck="true">
+		<form runat="server">
+			<asp:ContentPlaceHolder id="adminbar" runat="server">
+                <TEControl:AdministrationToolbar runat="server" />
+            </asp:ContentPlaceHolder>
+            <asp:ContentPlaceHolder ID="header" runat="server">
+                <TEControl:GroupThemeHeaderFragments runat="server" />
+            </asp:ContentPlaceHolder>
+			<asp:ContentPlaceHolder id="content" runat="server" />
+            <asp:ContentPlaceHolder ID="footer" runat="server">
+			    <TEControl:GroupThemeFooterFragments runat="server" />
+            </asp:ContentPlaceHolder>
+		</form>
+	</body>
+</html>

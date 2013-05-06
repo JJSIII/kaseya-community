@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<emailTemplates>
+  <emailTemplate name="wikis_comment">
+    <subject>
+      <![CDATA[
+$core_v2_wiki.Current.Name: New comment for $core_v2_wikiPage.Current.Title
+			]]>
+    </subject>
+    <htmlBody>
+      <![CDATA[
+#set($post = $core_v2_wikiPage.Current)
+#set($comment = $core_v2_comments.Current)
+
+<div style="font-family: arial; font-size: 10pt;">
+	<div style="font-size: 12pt;">
+		<b><a href="$core_v2_wikiUrls.Page($post.Id)">$post.Title</a>: New Comment</b>
+	</div>
+	By $comment.User.DisplayName<br/>
+	<p>
+		$email_utility.RenderHtml($comment.Body())
+	</p>
+	<div style="color: #7F7F7F; font-size: 8pt;">
+		<p>
+			<a href="$core_v2_wikiUrls.Page($post.Id)">View this post online</a>.
+		</p>
+	</div>
+</div>
+<p style="font-family: arial; color: #7F7F7F; font-size: 8pt;">
+    <a href="$core_v2_urls.ReportAbuse($core_v2_wikiUrls.Page($post.Id), $comment.CommentId, $comment.CommentContentTypeId)">Flag</a> this comment as spam/abuse.
+</p>
+			]]>
+    </htmlBody>
+    <textBody>
+      <![CDATA[
+#set($post = $core_v2_wikiPage.Current)
+#set($comment = $core_v2_comments.Current)
+
+From: $comment.User.DisplayName
+To:  $post.Title in $core_v2_wiki.Current.Name
+Link: $core_v2_wikiUrls.Page($post.Id)
+
+$email_utility.RenderText($comment.Body())
+]]>
+    </textBody>
+  </emailTemplate>
+</emailTemplates>

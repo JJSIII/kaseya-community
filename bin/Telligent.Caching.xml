@@ -1,0 +1,1192 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Telligent.Caching</name>
+    </assembly>
+    <members>
+        <member name="T:Telligent.Caching.Diagnostics.ClearAction">
+            <summary>
+            A clear command was executed in the cache system.
+            </summary>
+        </member>
+        <member name="T:Telligent.Caching.Diagnostics.CacheAction">
+            <summary>
+            Represents an action that occured in cache.
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.Diagnostics.CacheAction.Action">
+            <summary>
+            Gets the <see cref="!:Telligent.Caching.CacheActions"/> value for this instance.
+            </summary>
+        </member>
+        <member name="M:Telligent.Caching.Diagnostics.ClearAction.#ctor(Telligent.Caching.CacheScope,Telligent.Caching.CacheScope,System.String)">
+            <summary>
+            Creates a new instance of a <see cref="T:Telligent.Caching.Diagnostics.ClearAction"/>.
+            </summary>
+            <param name="requestScope">The scope specified in the command.</param>
+            <param name="hostScope">The host scope used in the command.</param>
+            <param name="name">The name of the host that executed the command.</param>
+        </member>
+        <member name="P:Telligent.Caching.Diagnostics.ClearAction.RequestScope">
+            <summary>
+            Gets the scope specified in the request.
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.Diagnostics.ClearAction.HostScope">
+            <summary>
+            Gets the executing host's scope.
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.Diagnostics.ClearAction.Name">
+            <summary>
+            Gets the name of the host that executed the command.
+            </summary>
+        </member>
+        <member name="T:Telligent.Caching.CacheHierarchy">
+            <summary>
+            An object that defines a <see cref="T:Telligent.Caching.Cache"/> object's hierarchical structure.  
+            </summary>
+        </member>
+        <member name="M:Telligent.Caching.CacheHierarchy.#ctor">
+            <summary>
+            Create a new instance of a <see cref="T:Telligent.Caching.CacheHierarchy"/>.
+            </summary>
+        </member>
+        <member name="M:Telligent.Caching.CacheHierarchy.Add(Telligent.Caching.CacheHost)">
+            <summary>
+            Adds a <see cref="T:Telligent.Caching.CacheHost"/> object to the end of the hierarchy.
+            </summary>
+            <param name="host">The <see cref="T:Telligent.Caching.CacheHost"/> to add.</param>
+            <returns>true if the host was added; otherwise, false.</returns>
+        </member>
+        <member name="M:Telligent.Caching.CacheHierarchy.Remove(Telligent.Caching.CacheHost)">
+            <summary>
+            Removes a <see cref="T:Telligent.Caching.CacheHost"/> from the hiearchy.
+            </summary>
+            <param name="host">The <see cref="T:Telligent.Caching.CacheHost"/> to remove.</param>
+            <returns>true if the host was removed; otherwise, false.</returns>
+        </member>
+        <member name="M:Telligent.Caching.CacheHierarchy.Clear">
+            <summary>
+            Removes all <see cref="T:Telligent.Caching.CacheHost"/> objects in this collection.
+            </summary>
+        </member>
+        <member name="T:Telligent.Caching.ICacheOverrideCondition">
+            <summary>
+            Defines a member that determines if a cache operation should be overridden.
+            </summary>
+        </member>
+        <member name="M:Telligent.Caching.ICacheOverrideCondition.IsTrue(Telligent.Caching.CacheItem)">
+            <summary>
+            Determines if a <see cref="T:Telligent.Caching.CacheItem"/> satisfies the condition defined by the instance.
+            </summary>
+            <param name="item">The item to evaluate.</param>
+            <returns>true if the <see cref="T:Telligent.Caching.CacheItem"/> satisfied the condition defined by the instance; otherwise, false.</returns>
+        </member>
+        <member name="T:Telligent.Caching.ICache">
+            <summary>
+            Defines members that are common among caches.
+            </summary>
+        </member>
+        <member name="M:Telligent.Caching.ICache.Get(System.String)">
+            <summary>
+            Retrieves the specified item from the <see cref="T:Telligent.Caching.ICache"/> object.
+            </summary>
+            <param name="key">The identifier for the cache item to retrieve.</param>
+            <returns>The object referenced by the given key, if it exists; otherwise, null.</returns>
+        </member>
+        <member name="M:Telligent.Caching.ICache.Put(System.String,System.Object,System.String[],System.TimeSpan)">
+            <summary>
+            Inserts an item into the <see cref="T:Telligent.Caching.ICache"/> object.
+            </summary>
+            <param name="key">The cache key used to reference the item.</param>
+            <param name="value">The object to be inserted into the cache.</param>
+            <param name="tags">The tags to associate with the item.</param>
+            <param name="timeout">The amount of time that the item should reside in the cache before expiration.</param>
+        </member>
+        <member name="M:Telligent.Caching.ICache.Remove(System.String)">
+            <summary>
+            Removes the specified item from the <see cref="T:Telligent.Caching.ICache"/> object.
+            </summary>
+            <param name="key">A System.String identifier for the cache item to remove.</param>
+        </member>
+        <member name="M:Telligent.Caching.ICache.RemoveByTags(System.String[])">
+            <summary>
+            Removes all items from the <see cref="T:Telligent.Caching.ICache"/> object that are 
+            associated with any of the specified tags.
+            </summary>
+            <param name="tags">The list of tags to remove.  Items associated with any of the specified tags will be removed from cache.</param>
+        </member>
+        <member name="M:Telligent.Caching.ICache.Clear">
+            <summary>
+            Removes all items in the <see cref="T:Telligent.Caching.ICache"/> object.
+            </summary>
+        </member>
+        <member name="T:Telligent.Caching.Configuration.IXmlConfigurable">
+            <summary>
+            Defines a member that is called after an object is created through Xml.  
+            </summary>
+        </member>
+        <member name="M:Telligent.Caching.Configuration.IXmlConfigurable.Initialize(System.Xml.XmlNode)">
+            <summary>
+            Invoked when an object is created through Xml.
+            </summary>
+            <param name="node">The Xml node used to create the instance.</param>
+        </member>
+        <member name="T:Telligent.Caching.NotCondition">
+            <summary>
+            A composite condition where the child <see cref="T:Telligent.Caching.ICacheOverrideCondition"/> instance will
+            have its evaluation result negated.  There can only be one child instance for this condition type.
+            </summary>
+        </member>
+        <member name="T:Telligent.Caching.CompositeCondition">
+            <summary>
+            A <see cref="!:Telligent.Cache.ICacheOverrideCondition"/> that contains child conditions used during evaluation. 
+            </summary>
+        </member>
+        <member name="T:Telligent.Caching.ICacheOverrideCompositeCondition">
+            <summary>
+            A <see cref="T:Telligent.Caching.ICacheOverrideCondition"/> that consists of child conditions.
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.ICacheOverrideCompositeCondition.Conditions">
+            <summary>
+            Gets the list of child conditions that are combined to form the composite instance.
+            </summary>
+        </member>
+        <member name="M:Telligent.Caching.CompositeCondition.IsTrue(Telligent.Caching.CacheItem)">
+            <summary>
+            Determines if the <see cref="T:Telligent.Caching.CacheItem"/> satisfies the condition defined by the instance.
+            </summary>
+            <param name="item">The item to evaluate.</param>
+            <returns>true if the <see cref="T:Telligent.Caching.CacheItem"/> satisfied the condition defined by the instance; otherwise, false.</returns>
+        </member>
+        <member name="P:Telligent.Caching.CompositeCondition.Conditions">
+            <summary>
+            Gets the list of child conditions that are combined to form the composite instance.
+            </summary>
+        </member>
+        <member name="M:Telligent.Caching.NotCondition.#ctor">
+            <summary>
+            Creates a new instance of a <see cref="T:Telligent.Caching.NotCondition"/> using the default values.
+            </summary>
+        </member>
+        <member name="T:Telligent.Caching.Diagnostics.AttachOptions">
+            <summary>
+            Used when attaching a debugger to a <see cref="T:Telligent.Caching.Cache"/> instance.
+            </summary>
+        </member>
+        <member name="M:Telligent.Caching.Diagnostics.AttachOptions.#ctor">
+            <summary>
+            Creates a new instance of a <see cref="T:Telligent.Caching.Diagnostics.AttachOptions"/> using the default values.
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.Diagnostics.AttachOptions.BufferSize">
+            <summary>
+            Gets or sets the maximum buffer size of actions.  Any actions added will be discarded as long as the buffer is filled.
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.Diagnostics.AttachOptions.ActionsFilter">
+            <summary>
+            Gets or sets the <see cref="!:Telligent.Caching.Diangostics.CacheActions"/> types to buffer.  Set this value to null to receive
+            all action types.
+            </summary>
+        </member>
+        <member name="T:Telligent.Caching.CacheHost">
+            <summary>
+            An object that hosts a <see cref="T:Telligent.Caching.ICache"/> used in a cache system.  This class cannot be inherited.
+            </summary>
+        </member>
+        <member name="T:Telligent.Caching.ICacheAssignable">
+            <summary>
+            Defines a member used to determine an object's supported <see cref="T:Telligent.Caching.CacheScope"/>.
+            </summary>
+        </member>
+        <member name="M:Telligent.Caching.ICacheAssignable.GetScope">
+            <summary>
+            Gets the cache scope an object supports.
+            </summary>
+            <returns>The supported <see cref="T:Telligent.Caching.CacheScope"/>.</returns>
+        </member>
+        <member name="M:Telligent.Caching.CacheHost.#ctor(Telligent.Caching.ICache,System.String,System.Double)">
+            <summary>
+            Creates a new instance of a <see cref="T:Telligent.Caching.CacheHost"/>, using the specified <see cref="T:Telligent.Caching.ICache"/> as the target.	
+            </summary>
+            <param name="cache">The target <see cref="T:Telligent.Caching.ICache"/> to host.</param>
+            <param name="name">The name that can be used to identify the host.  If this value is null, the type name for the <paramref name="cache"/> parameter is used.</param>
+            <param name="cacheFactor">The timeout factor to apply when placing an item in the <see cref="T:Telligent.Caching.ICache"/>.</param>
+        </member>
+        <member name="M:Telligent.Caching.CacheHost.Dispose">
+            <summary>
+            Disposes all resources held by the host instance.
+            </summary>
+        </member>
+        <member name="M:Telligent.Caching.CacheHost.GetScope">
+            <summary>
+            Gets the supported scope for the hosted cache.  If the hosted 
+            cache does not specify a scope, then all scopes are allowed.
+            </summary>
+            <returns>The supported <see cref="T:Telligent.Caching.CacheScope"/>.</returns>
+        </member>
+        <member name="P:Telligent.Caching.CacheHost.Name">
+            <summary>
+            Gets the name for the host instance.
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.CacheHost.CacheFactor">
+            <summary>
+            Gets a value indicating the timeout adjustment factor that should be applied 
+            when placing an item into the hosted cache.
+            </summary>
+        </member>
+        <member name="T:Telligent.Caching.OrCondition">
+            <summary>
+            A composite condition where any child conditions must be true in order to be successful.
+            </summary>
+        </member>
+        <member name="M:Telligent.Caching.OrCondition.#ctor">
+            <summary>
+            Creates a new instance of a <see cref="T:Telligent.Caching.OrCondition"/> using the default values.
+            </summary>
+        </member>
+        <member name="T:Telligent.Caching.Diagnostics.CacheActions">
+            <summary>
+            An action that occurs in a cache system.
+            </summary>
+        </member>
+        <member name="F:Telligent.Caching.Diagnostics.CacheActions.None">
+            <summary>
+            No action has occurred.
+            </summary>
+        </member>
+        <member name="F:Telligent.Caching.Diagnostics.CacheActions.Hit">
+            <summary>
+            An object was successfully retrieved.
+            </summary>
+        </member>
+        <member name="F:Telligent.Caching.Diagnostics.CacheActions.Miss">
+            <summary>
+            The requested item was not found in an individual cache.
+            </summary>
+        </member>
+        <member name="F:Telligent.Caching.Diagnostics.CacheActions.LogicalMiss">
+            <summary>
+            The requested item was not found in any cache.
+            </summary>
+        </member>
+        <member name="F:Telligent.Caching.Diagnostics.CacheActions.Remove">
+            <summary>
+            A remove command was issued.
+            </summary>
+        </member>
+        <member name="F:Telligent.Caching.Diagnostics.CacheActions.RemoveByTags">
+            <summary>
+            A Remove-By-Tags command was issued.
+            </summary>
+        </member>
+        <member name="F:Telligent.Caching.Diagnostics.CacheActions.Clear">
+            <summary>
+            A clear command was issued.
+            </summary>
+        </member>
+        <member name="F:Telligent.Caching.Diagnostics.CacheActions.Put">
+            <summary>
+            An object was explicitly placed into cache by user code.
+            </summary>
+        </member>
+        <member name="F:Telligent.Caching.Diagnostics.CacheActions.SystemPut">
+            <summary>
+            An object was implicitly placed into the cache by the system.
+            </summary>
+        </member>
+        <member name="F:Telligent.Caching.Diagnostics.CacheActions.OverrideApplied">
+            <summary>
+            A cache override was applied.
+            </summary>
+        </member>
+        <member name="T:Telligent.Caching.Diagnostics.SystemPutAction">
+            <summary>
+            An object was implicitly placed into the cache by the system.
+            </summary>
+        </member>
+        <member name="M:Telligent.Caching.Diagnostics.SystemPutAction.#ctor(System.String,System.String[],System.TimeSpan,System.TimeSpan,Telligent.Caching.CacheScope,Telligent.Caching.CacheScope,System.String)">
+            <summary>
+            Creates a new instance of a <see cref="T:Telligent.Caching.Diagnostics.SystemPutAction"/>.
+            </summary>
+            <param name="key">The key used in the command.</param>
+            <param name="tags">The tags used in the command.</param>
+            <param name="requestTimeout">The timeout specified in the command.</param>
+            <param name="actualTimeout">The actual timeout used in the command.</param>
+            <param name="requestScope">The scope specified in the command.</param>
+            <param name="hostScope">The host scope used in the command.</param>
+            <param name="name">The name of the host that executed the command.</param>
+        </member>
+        <member name="P:Telligent.Caching.Diagnostics.SystemPutAction.Key">
+            <summary>
+            Gets the key used in the command.
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.Diagnostics.SystemPutAction.Tags">
+            <summary>
+            Gets the tags used in the command.
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.Diagnostics.SystemPutAction.RequestTimeout">
+            <summary>
+            Gets the timeout specified in the command.
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.Diagnostics.SystemPutAction.ActualTimeout">
+            <summary>
+            Gets the actual timeout used in the command.
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.Diagnostics.SystemPutAction.RequestScope">
+            <summary>
+            Gets the scope specified in the request.
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.Diagnostics.SystemPutAction.HostScope">
+            <summary>
+            Gets the executing host's scope.
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.Diagnostics.SystemPutAction.Name">
+            <summary>
+            Gets the name of the host that executed the command.
+            </summary>
+        </member>
+        <member name="T:Telligent.Caching.AndCondition">
+            <summary>
+            A composite override condition where all child conditions must be true in order to be successful.
+            </summary>
+        </member>
+        <member name="M:Telligent.Caching.AndCondition.#ctor">
+            <summary>
+            Creates a new instance of a <see cref="T:Telligent.Caching.AndCondition"/> using the default values.
+            </summary>
+        </member>
+        <member name="T:Telligent.Caching.CacheConfiguration">
+            <summary>
+            An object that specifies the configuration information for a <see cref="T:Telligent.Caching.Cache"/> object.
+            </summary>
+        </member>
+        <member name="M:Telligent.Caching.CacheConfiguration.FromConfig">
+            <summary>
+            Creates a <see cref="T:Telligent.Caching.CacheConfiguration"/> object based on the currently available configuration section.
+            </summary>
+            <returns>An object that represents the XML configuration section for caching, if available; otherwise, the default configuration.</returns>
+        </member>
+        <member name="M:Telligent.Caching.CacheConfiguration.#ctor">
+            <summary>
+            Creates a new instance of a <see cref="T:Telligent.Caching.CacheConfiguration"/> object 
+            using the default values.
+            </summary>
+        </member>
+        <member name="M:Telligent.Caching.CacheConfiguration.#ctor(Telligent.Caching.CacheHierarchy,Telligent.Caching.CacheOverrides)">
+            <summary>
+            Creates a new instance of a <see cref="T:Telligent.Caching.CacheConfiguration"/> object.
+            </summary>
+            <param name="hierarchy">The object that defines the cache's hierarchical structure.</param>
+            <param name="overrides">The set of behavioral changes for the cache system.</param>
+        </member>
+        <member name="P:Telligent.Caching.CacheConfiguration.Hierarchy">
+            <summary>
+            Gets or sets the <see cref="T:Telligent.Caching.CacheHierarchy"/> object that defines the 
+            cache's hierarchical structure.  Cache requests will be made in the order specified 
+            by this value.
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.CacheConfiguration.Overrides">
+            <summary>
+            Gets or sets the <see cref="T:Telligent.Caching.CacheOverrides"/> object that contains
+            behavioral changes to the cache system.
+            </summary>
+        </member>
+        <member name="T:Telligent.Caching.Diagnostics.MissAction">
+            <summary>
+            A miss occured in the cache system.
+            </summary>
+        </member>
+        <member name="M:Telligent.Caching.Diagnostics.MissAction.#ctor(System.String,Telligent.Caching.CacheScope,Telligent.Caching.CacheScope,System.String)">
+            <summary>
+            Creates a new instance of a <see cref="T:Telligent.Caching.Diagnostics.MissAction"/>.
+            </summary>
+            <param name="key">The key used in the command.</param>
+            <param name="requestScope">The scope specified in the command.</param>
+            <param name="hostScope">The host scope used in the command.</param>
+            <param name="name">The name of the host that executed the command.</param>
+        </member>
+        <member name="P:Telligent.Caching.Diagnostics.MissAction.Key">
+            <summary>
+            Gets the key used in the command.
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.Diagnostics.MissAction.RequestScope">
+            <summary>
+            Gets the scope specified in the request.
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.Diagnostics.MissAction.HostScope">
+            <summary>
+            Gets the executing host's scope.
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.Diagnostics.MissAction.Name">
+            <summary>
+            Gets the name of the host that executed the command.
+            </summary>
+        </member>
+        <member name="T:Telligent.Caching.RegexCondition">
+            <summary>
+            An override condition that uses regular expression patterns to match keys or tags.
+            </summary>
+        </member>
+        <member name="T:Telligent.Caching.AliasCondition">
+            <summary>
+            A <see cref="!:Telligent.Cache.ICacheOverrideCondition"/> that matches keys or tags against an alias.
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.AliasCondition.Mode">
+            <summary>
+            Gets or sets the data to use during evaluations.
+            </summary>
+        </member>
+        <member name="M:Telligent.Caching.RegexCondition.#ctor">
+            <summary>
+            Creates a new instance of a <see cref="T:Telligent.Caching.RegexCondition"/> using the default values.
+            </summary>
+        </member>
+        <member name="M:Telligent.Caching.RegexCondition.#ctor(Telligent.Caching.AliasConditionMode,System.String)">
+            <summary>
+            Creates a new instance of a <see cref="T:Telligent.Caching.RegexCondition"/>.
+            </summary>
+            <param name="mode">Defines how matching is performed during alias comparisions.</param>
+            <param name="pattern">The regular expression pattern to use.</param>
+        </member>
+        <member name="P:Telligent.Caching.RegexCondition.Pattern">
+            <summary>
+            Gets or sets the regular expression pattern used for pattern matching.
+            </summary>
+        </member>
+        <member name="T:Telligent.Caching.Web.AspNetCache">
+            <summary>
+            A <see cref="T:Telligent.Caching.ICache"/> that uses the built-in ASP.NET <see cref="T:System.Web.Caching.Cache"/>.  This class cannot be inherited.
+            </summary>
+        </member>
+        <member name="T:Telligent.Caching.Extensions.CacheScopeExtensions">
+            <summary>
+            Provides extension methods for working with <see cref="T:Telligent.Caching.CacheScope"/> values.
+            </summary>
+        </member>
+        <member name="M:Telligent.Caching.Extensions.CacheScopeExtensions.IsAll(Telligent.Caching.CacheScope,Telligent.Caching.CacheScope)">
+            <summary>
+            Determines if a specified <see cref="T:Telligent.Caching.CacheScope"/> contains all values defined in <paramref name="compareTo"/>.
+            </summary>
+            <param name="value">The value to test.</param>
+            <param name="compareTo">The flags to test for.</param>
+            <returns>true if the <paramref name="value"/> contains all flags in <paramref name="compareTo"/>; otherwise, false.</returns>
+        </member>
+        <member name="M:Telligent.Caching.Extensions.CacheScopeExtensions.IsAny(Telligent.Caching.CacheScope,Telligent.Caching.CacheScope)">
+            <summary>
+            Determines if a specified <see cref="T:Telligent.Caching.CacheScope"/> contains any values defined in <paramref name="compareTo"/>.
+            </summary>
+            <param name="value">The value to test.</param>
+            <param name="compareTo">The flags to test for.</param>
+            <returns>true if the <paramref name="value"/> contains any flags in <paramref name="compareTo"/>; otherwise, false.</returns>
+        </member>
+        <member name="T:Telligent.Caching.StartsWithCondition">
+            <summary>
+            A condition that attempts to match a starting text pattern against keys or tags.
+            </summary>
+        </member>
+        <member name="M:Telligent.Caching.StartsWithCondition.#ctor">
+            <summary>
+            Creates a new instance of a <see cref="T:Telligent.Caching.StartsWithCondition"/> using the default values.
+            </summary>
+        </member>
+        <member name="M:Telligent.Caching.StartsWithCondition.#ctor(Telligent.Caching.AliasConditionMode,System.String)">
+            <summary>
+            Creates a new instance of a <see cref="T:Telligent.Caching.StartsWithCondition"/>.
+            <param name="mode">Specifies the data used when evaluating the condition.</param>
+            <param name="startsWith">The starting text pattern to match.</param>
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.StartsWithCondition.StartsWith">
+            <summary>
+            Gets or sets the starting text pattern to use when matching against keys or tags.
+            </summary>
+        </member>
+        <member name="T:Telligent.Caching.CacheItem">
+            <summary>
+            Used to encapsulate all information associated with a cached object.  This class cannot be inherited.
+            </summary>
+        </member>
+        <member name="M:Telligent.Caching.CacheItem.#ctor(System.String,System.Object,Telligent.Caching.CacheScope,System.String[],System.TimeSpan)">
+            <summary>
+            Creates a new instance of a <see cref="T:Telligent.Caching.CacheItem"/>.
+            </summary>
+            <param name="key">The key that is used to identify the item.</param>
+            <param name="value">The object stored in cache.</param>
+            <param name="scope">The <see cref="T:Telligent.Caching.CacheScope"/> the item may be placed in.</param>
+            <param name="tags">The tags associated with the item</param>
+            <param name="timeout">The amount of time that the item should reside in the cache before expiration.</param>
+        </member>
+        <member name="P:Telligent.Caching.CacheItem.Key">
+            <summary>
+            Gets the identifier for the cache item.
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.CacheItem.Value">
+            <summary>
+            Gets the object that is stored in cache.
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.CacheItem.Scope">
+            <summary>
+            Gets the <see cref="T:Telligent.Caching.CacheScope"/> the item is assigned to.
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.CacheItem.Tags">
+            <summary>
+            Gets the tags associated with the item.
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.CacheItem.Timeout">
+            <summary>
+            Gets the amount of time that the item should reside in the cache before expiration.
+            </summary>
+        </member>
+        <member name="T:Telligent.Caching.Cache">
+            <summary>
+            The object that is used by cache-enabled applications for storing and retrieving objects from the cache subsystem.  This class cannot be inherited.
+            </summary>
+        </member>
+        <member name="F:Telligent.Caching.Cache.NoTimeout">
+            <summary>
+            A constant used to specify an infinite amount of time.  
+            </summary>
+        </member>
+        <member name="M:Telligent.Caching.Cache.#ctor">
+            <summary>
+            Creates a new instance of a <see cref="T:Telligent.Caching.Cache"/> using the caching configuration section.
+            </summary>
+        </member>
+        <member name="M:Telligent.Caching.Cache.#ctor(Telligent.Caching.CacheConfiguration)">
+            <summary>
+            Creates a new instance of a <see cref="T:Telligent.Caching.Cache"/> using the specified configuration.
+            </summary>
+            <param name="config">The <see cref="T:Telligent.Caching.CacheConfiguration"/> instance that describes how the cache should be created.</param>
+        </member>
+        <member name="M:Telligent.Caching.Cache.Get(System.String,Telligent.Caching.CacheScope)">
+            <summary>
+            Retrieves the specified item from the <see cref="T:Telligent.Caching.Cache"/> object.
+            </summary>
+            <param name="key">The identifier for the cache item to retrieve.</param>
+            <param name="scope">The <see cref="T:Telligent.Caching.CacheScope"/> to search.</param>
+            <returns>The object referenced by the given key, if it exists; otherwise, null.</returns>
+        </member>
+        <member name="M:Telligent.Caching.Cache.Put(System.String,System.Object,System.String[],Telligent.Caching.CacheScope)">
+            <summary>
+            Inserts an item into the <see cref="T:Telligent.Caching.Cache"/> object, using the 
+            specified scope and tags to further identify the object and how it may be cached.
+            </summary>
+            <param name="key">The cache key used to reference the item.</param>
+            <param name="value">The object to be inserted into the cache.</param>
+            <param name="tags">The tags to associate with the item.</param>
+            <param name="scope">The <see cref="T:Telligent.Caching.CacheScope"/> the item may be placed in.</param>
+        </member>
+        <member name="M:Telligent.Caching.Cache.Put(System.String,System.Object,System.TimeSpan,System.String[],Telligent.Caching.CacheScope)">
+            <summary>
+            Inserts an item into the <see cref="T:Telligent.Caching.Cache"/> object, using the 
+            specified tags, timeout, and scope to further identify the object and how it may be cached.
+            </summary>
+            <param name="key">The cache key used to reference the item.</param>
+            <param name="value">The object to be inserted into the cache.</param>
+            <param name="timeout">The amount of time that the item should reside in the cache before expiration.</param>
+            <param name="tags">The tags to associate with the item.</param>
+            <param name="scope">The <see cref="T:Telligent.Caching.CacheScope"/> the item may be placed in.</param>
+        </member>
+        <member name="M:Telligent.Caching.Cache.Remove(System.String,Telligent.Caching.CacheScope)">
+            <summary>
+            Removes the specified item from the <see cref="T:Telligent.Caching.Cache"/> object.
+            </summary>
+            <param name="key">A System.String identifier for the cache item to remove.</param>
+            <param name="scope">The <see cref="T:Telligent.Caching.CacheScope"/> to operate on.</param>
+        </member>
+        <member name="M:Telligent.Caching.Cache.RemoveByTags(System.String[],Telligent.Caching.CacheScope)">
+            <summary>
+            Removes all items from the <see cref="T:Telligent.Caching.Cache"/> object that are 
+            associated with any of the specified tags.
+            </summary>
+            <param name="tags">The list of tags to remove.  Items associated with any of the specified tags will be removed from cache.</param>
+            <param name="scope">The <see cref="T:Telligent.Caching.CacheScope"/> to operate on.</param>
+        </member>
+        <member name="M:Telligent.Caching.Cache.Clear(Telligent.Caching.CacheScope)">
+            <summary>
+            Removes all items in the <see cref="T:Telligent.Caching.Cache"/> object.
+            </summary>
+            <param name="scope">The <see cref="T:Telligent.Caching.CacheScope"/> to operate on.</param>
+        </member>
+        <member name="M:Telligent.Caching.Cache.Dispose">
+            <summary>
+            Disposes all resources held by the cache instance.
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.Cache.Item(System.String,Telligent.Caching.CacheScope)">
+            <summary>
+            Gets or sets an item into the <see cref="T:Telligent.Caching.Cache"/> object, using 
+            the default timeout.
+            </summary>
+            <param name="key">The cache key used to reference the item.</param>
+            <param name="scope">The <see cref="T:Telligent.Caching.CacheScope"/> to operate on.</param>
+            <returns>The object referenced by the given key, if it exists; otherwise, null.</returns>
+        </member>
+        <member name="P:Telligent.Caching.Cache.DefaultTimeout">
+            <summary>
+            Gets the default time an item should be in cache.
+            </summary>
+        </member>
+        <member name="T:Telligent.Caching.Diagnostics.OverrideAppliedAction">
+            <summary>
+            A cache override was applied.
+            </summary>
+        </member>
+        <member name="M:Telligent.Caching.Diagnostics.OverrideAppliedAction.#ctor(System.String,System.String[],System.TimeSpan,System.Nullable{System.TimeSpan},Telligent.Caching.CacheScope,System.Nullable{Telligent.Caching.CacheScope})">
+            <summary>
+            Creates a new instance of a <see cref="T:Telligent.Caching.Diagnostics.OverrideAppliedAction"/>.
+            </summary>
+            <param name="key">The key used in the command.</param>
+            <param name="tags">The tags used in the command.</param>
+            <param name="requestTimeout">The timeout specified in the command.</param>
+            <param name="adjustedTimeout">The adjusted timeout set by the override.  If the override did not set an adjustment, this value is null.</param>
+            <param name="requestScope">The scope specified in the command.</param>
+            <param name="allowedScope">The allowed scope set by the override.  If the override did not set an allowed scope, this value is null.</param>
+        </member>
+        <member name="P:Telligent.Caching.Diagnostics.OverrideAppliedAction.Key">
+            <summary>
+            Gets the key used in the command.
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.Diagnostics.OverrideAppliedAction.Tags">
+            <summary>
+            Gets the tags used in the command.
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.Diagnostics.OverrideAppliedAction.RequestTimeout">
+            <summary>
+            The timeout specified in the command.  If the override did not 
+            set an adjustment, this value is null.
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.Diagnostics.OverrideAppliedAction.AdjustedTimeout">
+            <summary>
+            Gets the adjusted timeout set by the override.
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.Diagnostics.OverrideAppliedAction.RequestScope">
+            <summary>
+            The scope specified in the command.
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.Diagnostics.OverrideAppliedAction.AllowedScope">
+            <summary>
+            Gets the allowed scope set by the override.  If the override did not 
+            set an allowed scope, this value is null.
+            </summary>
+        </member>
+        <member name="T:Telligent.Caching.Diagnostics.HitAction">
+            <summary>
+            A hit occured in the cache system.
+            </summary>
+        </member>
+        <member name="M:Telligent.Caching.Diagnostics.HitAction.#ctor(System.String,Telligent.Caching.CacheScope,Telligent.Caching.CacheScope,System.String)">
+            <summary>
+            Creates a new instance of a <see cref="T:Telligent.Caching.Diagnostics.HitAction"/>.
+            </summary>
+            <param name="key">The key used in the command.</param>
+            <param name="requestScope">The scope specified in the command.</param>
+            <param name="hostScope">The host scope used in the command.</param>
+            <param name="name">The name of the host that executed the command.</param>
+        </member>
+        <member name="P:Telligent.Caching.Diagnostics.HitAction.Key">
+            <summary>
+            Gets the key used in the command.
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.Diagnostics.HitAction.RequestScope">
+            <summary>
+            Gets the scope specified in the request.
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.Diagnostics.HitAction.HostScope">
+            <summary>
+            Gets the executing host's scope.
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.Diagnostics.HitAction.Name">
+            <summary>
+            Gets the name of the host that executed the command.
+            </summary>
+        </member>
+        <member name="T:Telligent.Caching.EndsWithCondition">
+            <summary>
+            An override condition that attempts to match an ending text pattern against keys or tags.
+            </summary>
+        </member>
+        <member name="M:Telligent.Caching.EndsWithCondition.#ctor">
+            <summary>
+            Creates a new instance of a <see cref="T:Telligent.Caching.EndsWithCondition"/> using the default values.
+            </summary>
+        </member>
+        <member name="M:Telligent.Caching.EndsWithCondition.#ctor(Telligent.Caching.AliasConditionMode,System.String)">
+            <summary>
+            Creates a new instance of a <see cref="T:Telligent.Caching.EndsWithCondition"/>.
+            <param name="mode">Specifies the data used when evaluating the condition.</param>
+            <param name="endsWith">The ending text pattern to match.</param>
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.EndsWithCondition.EndsWith">
+            <summary>
+            Gets or sets the ending text pattern to use when matching against keys or tags.
+            </summary>
+        </member>
+        <member name="T:Telligent.Caching.AliasConditionMode">
+            <summary>
+            Defines the data set to use during a <see cref="T:Telligent.Caching.AliasCondition"/> evaluation.
+            </summary>
+        </member>
+        <member name="F:Telligent.Caching.AliasConditionMode.Key">
+            <summary>
+            The cache key matches the alias.
+            </summary>
+        </member>
+        <member name="F:Telligent.Caching.AliasConditionMode.AnyTags">
+            <summary>
+            Any of the specified cache tags matches the alias.
+            </summary>
+        </member>
+        <member name="F:Telligent.Caching.AliasConditionMode.AllTags">
+            <summary>
+            All of the specified cache tags match the alias.
+            </summary>
+        </member>
+        <member name="F:Telligent.Caching.AliasConditionMode.NoTags">
+            <summary>
+            None of the specified cache tags match the alias.
+            </summary>
+        </member>
+        <member name="T:Telligent.Caching.OverrideResult">
+            <summary>
+            Contains all behavioral changes for a cache operation.
+            </summary>
+        </member>
+        <member name="M:Telligent.Caching.OverrideResult.#ctor(System.Nullable{System.TimeSpan},System.Nullable{Telligent.Caching.CacheScope})">
+            <summary>
+            Creates a new instance of a <see cref="T:Telligent.Caching.OverrideResult"/>.
+            </summary>
+            <param name="adjustedTimeout">The modified timeout for the cache operation.  Specify null for no adjustment for timeout values.</param>
+            <param name="allowedScope">The set of allowable scope locations that the item can reside in.  Specify null to allow all scope values.</param>
+        </member>
+        <member name="P:Telligent.Caching.OverrideResult.AdjustedTimeout">
+            <summary>
+            Gets the adjusted timeout value to use for the operation.  If 
+            the timeout is not being changed, this value is null.
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.OverrideResult.AllowedScope">
+            <summary>
+            Gets the defined set of scope locations the item can reside 
+            in.  If the scope value is not being restricted, this value is null.
+            </summary>
+        </member>
+        <member name="T:Telligent.Caching.CacheOverrides">
+            <summary>
+            Defines behavioral changes for cache operations.
+            </summary>
+        </member>
+        <member name="M:Telligent.Caching.CacheOverrides.#ctor">
+            <summary>
+            Creates a new instance of a <see cref="T:Telligent.Caching.CacheOverrides"/> using the default values.
+            </summary>
+        </member>
+        <member name="M:Telligent.Caching.CacheOverrides.#ctor(System.TimeSpan)">
+            <summary>
+            Creates a new instance of a <see cref="T:Telligent.Caching.CacheOverrides"/>.
+            </summary>
+            <param name="defaultTimeout">The default time an item should be in cache.  If an item placed in cache does not specify a timeout, this value is used.</param>
+        </member>
+        <member name="M:Telligent.Caching.CacheOverrides.Add(Telligent.Caching.ICacheOverride)">
+            <summary>
+            Adds a <see cref="T:Telligent.Caching.ICacheOverride"/> to the list of overrides.
+            </summary>
+            <param name="value">The <see cref="T:Telligent.Caching.ICacheOverride"/> to add.</param> 
+            <returns>true if the override was added; otherwise, false.</returns>
+        </member>
+        <member name="M:Telligent.Caching.CacheOverrides.Remove(Telligent.Caching.ICacheOverride)">
+            <summary>
+            Removes a <see cref="T:Telligent.Caching.ICacheOverride"/> from the list of overrides.
+            </summary>
+            <param name="value">The <see cref="T:Telligent.Caching.ICacheOverride"/> to remove.</param> 
+            <returns>true if the override was removed; otherwise, false.</returns>
+        </member>
+        <member name="M:Telligent.Caching.CacheOverrides.Clear">
+            <summary>
+            Removes all <see cref="T:Telligent.Caching.ICacheOverride"/> objects in this collection.
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.CacheOverrides.DefaultTimeout">
+            <summary>
+            Gets the default time an item should be in cache.
+            </summary>
+        </member>
+        <member name="T:Telligent.Caching.Diagnostics.RemoveAction">
+            <summary>
+            A remove command was executed in the cache system.
+            </summary>
+        </member>
+        <member name="M:Telligent.Caching.Diagnostics.RemoveAction.#ctor(System.String,Telligent.Caching.CacheScope,Telligent.Caching.CacheScope,System.String)">
+            <summary>
+            Creates a new instance of a <see cref="T:Telligent.Caching.Diagnostics.RemoveAction"/>.
+            </summary>
+            <param name="key">The key used in the command.</param>
+            <param name="requestScope">The scope specified in the command.</param>
+            <param name="hostScope">The host scope used in the command.</param>
+            <param name="name">The name of the host that executed the command.</param>
+        </member>
+        <member name="P:Telligent.Caching.Diagnostics.RemoveAction.Key">
+            <summary>
+            Gets the key used in the command.
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.Diagnostics.RemoveAction.RequestScope">
+            <summary>
+            Gets the scope specified in the request.
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.Diagnostics.RemoveAction.HostScope">
+            <summary>
+            Gets the executing host's scope.
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.Diagnostics.RemoveAction.Name">
+            <summary>
+            Gets the name of the host that executed the command.
+            </summary>
+        </member>
+        <member name="T:Telligent.Caching.CacheScope">
+            <summary>
+            Logical locations in a cache subsystem.
+            </summary>
+        </member>
+        <member name="F:Telligent.Caching.CacheScope.None">
+            <summary>
+            No location.
+            </summary>
+        </member>
+        <member name="F:Telligent.Caching.CacheScope.Context">
+            <summary>
+            The context location.
+            </summary>
+        </member>
+        <member name="F:Telligent.Caching.CacheScope.Process">
+            <summary>
+            The process location.
+            </summary>
+        </member>
+        <member name="F:Telligent.Caching.CacheScope.Distributed">
+            <summary>
+            The distributed location.
+            </summary>
+        </member>
+        <member name="F:Telligent.Caching.CacheScope.All">
+            <summary>
+            All locations.
+            </summary>
+        </member>
+        <member name="T:Telligent.Caching.ICacheOverride">
+            <summary>
+            Defines members to override cache behavior.
+            </summary>
+        </member>
+        <member name="M:Telligent.Caching.ICacheOverride.ExecuteOverride(Telligent.Caching.CacheItem)">
+            <summary>
+            Executes the override for the specified cache operation.  If the override does 
+            not modify any values, a null value should be returned.  Otherwise, return any 
+            modifications that should be made to the operation.
+            </summary>
+            <param name="item">The item that contains information about the cache operation.</param>
+            <returns>A <see cref="T:Telligent.Caching.OverrideResult"/> describing modifications; otherwise, null.</returns>
+        </member>
+        <member name="T:Telligent.Caching.CacheOverride">
+            <summary>
+            Defines an implementation for the <see cref="T:Telligent.Caching.ICacheOverride"/> contract.
+            </summary>
+        </member>
+        <member name="M:Telligent.Caching.CacheOverride.#ctor">
+            <summary>
+            Creates a new instance of a <see cref="T:Telligent.Caching.CacheOverride"/> using the default values.
+            </summary>
+        </member>
+        <member name="M:Telligent.Caching.CacheOverride.#ctor(System.Nullable{System.TimeSpan},System.Nullable{System.Double},System.Nullable{Telligent.Caching.CacheScope},Telligent.Caching.ICacheOverrideCompositeCondition)">
+            <summary>
+            Creates a new instance of a <see cref="T:Telligent.Caching.CacheOverride"/>.
+            </summary>
+            <param name="timeout">The modified timeout.  Specify null for no adjustment for timeout values.</param>
+            <param name="cacheFactor">The factor applied to all timeout values.  Specify null for no factor adjustments.</param>
+            <param name="allowedScope">The modified <see cref="T:Telligent.Caching.CacheScope"/>.  Specify null for no adjustment for scope values.</param>
+            <param name="condition">The condition that must be satisfieid in order for the override to be applied.  If a condition is not specified, the default condition type will be used.</param>
+        </member>
+        <member name="M:Telligent.Caching.CacheOverride.ExecuteOverride(Telligent.Caching.CacheItem)">
+            <summary>
+            Applies behavioral changes defined by the instance.
+            </summary>
+            <param name="item">The <see cref="T:Telligent.Caching.CacheItem"/> the changes should be applied for.</param>
+            <returns>a <see cref="T:Telligent.Caching.OverrideResult"/> with the modifications applied; otherwise, null.</returns>
+        </member>
+        <member name="P:Telligent.Caching.CacheOverride.Timeout">
+            <summary>
+            Gets or sets the adjusted timeout value to use when placing an item into cache.  If a timeout
+            value was not specified, this value is null.
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.CacheOverride.CacheFactor">
+            <summary>
+            Gets or sets the factor applied to timeout values.  If a timeout factor value was not specified,
+            this value is null.
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.CacheOverride.AllowedScope">
+            <summary>
+            Gets or sets the available <see cref="!:Telligent.Cache.CacheScope"/> the item may be placed in.  If a scope
+            value was not specified, this value is null.
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.CacheOverride.Condition">
+            <summary>
+            Gets the condition that must be satisfied in order for the override to be applied.
+            </summary>
+        </member>
+        <member name="T:Telligent.Caching.Extensions.StringArrayExtensions">
+            <summary>
+            Provides extension methods for working with <see cref="T:System.String"/> values.
+            </summary>
+        </member>
+        <member name="T:Telligent.Caching.Diagnostics.LogicalMissAction">
+            <summary>
+            A logical miss occured in the cache system.
+            </summary>
+        </member>
+        <member name="M:Telligent.Caching.Diagnostics.LogicalMissAction.#ctor(System.String,Telligent.Caching.CacheScope)">
+            <summary>
+            Creates a new instance of a <see cref="T:Telligent.Caching.Diagnostics.LogicalMissAction"/>.
+            </summary>
+            <param name="key">The key used in the command.</param>
+            <param name="requestScope">The scope specified in the command.</param>
+        </member>
+        <member name="P:Telligent.Caching.Diagnostics.LogicalMissAction.Key">
+            <summary>
+            Gets the key used in the command.
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.Diagnostics.LogicalMissAction.RequestScope">
+            <summary>
+            Gets the scope specified in the request.
+            </summary>
+        </member>
+        <member name="T:Telligent.Caching.Diagnostics.CacheDebugger">
+            <summary>
+            Provides a way to monitor a cache system.
+            </summary>
+        </member>
+        <member name="M:Telligent.Caching.Diagnostics.CacheDebugger.#ctor(Telligent.Caching.Cache,Telligent.Caching.Diagnostics.AttachOptions)">
+            <summary>
+            Creates a new instance of a <see cref="T:Telligent.Caching.Diagnostics.CacheDebugger"/>.
+            </summary>
+            <param name="target">The <see cref="T:Telligent.Caching.Cache"/> instance to debug.</param>
+            <param name="options">Specifies attachment properties and settings.</param>
+        </member>
+        <member name="M:Telligent.Caching.Diagnostics.CacheDebugger.Detach(System.Int32)">
+            <summary>
+            Stops the debugger and optionally returns any remaining buffered actions.
+            </summary>
+            <param name="count">The maximum number of still buffered actions to return.</param>
+            <returns>A list of actions executed in the cache system.</returns>
+        </member>
+        <member name="M:Telligent.Caching.Diagnostics.CacheDebugger.Read(System.Int32)">
+            <summary>
+            Reads the actions buffer for commands executed in the cache system.
+            </summary>
+            <param name="count">The maximum number of actions to read.</param>
+            <returns>A list of actions executed in the cache system.</returns>
+        </member>
+        <member name="T:Telligent.Caching.Diagnostics.RemoveByTagsAction">
+            <summary>
+            A Remove-By-Tags command was executed in the cache system.
+            </summary>
+        </member>
+        <member name="M:Telligent.Caching.Diagnostics.RemoveByTagsAction.#ctor(System.String[],Telligent.Caching.CacheScope,Telligent.Caching.CacheScope,System.String)">
+            <summary>
+            Creates a new instance of a <see cref="T:Telligent.Caching.Diagnostics.RemoveByTagsAction"/>.
+            </summary>
+            <param name="tags">The tags used in the command.</param>
+            <param name="requestScope">The scope specified in the command.</param>
+            <param name="hostScope">The host scope used in the command.</param>
+            <param name="name">The name of the host that executed the command.</param>
+        </member>
+        <member name="P:Telligent.Caching.Diagnostics.RemoveByTagsAction.Tags">
+            <summary>
+            The tags used in the command.
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.Diagnostics.RemoveByTagsAction.RequestScope">
+            <summary>
+            The scope specified in the request.
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.Diagnostics.RemoveByTagsAction.HostScope">
+            <summary>
+            Gets the executing host's scope.
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.Diagnostics.RemoveByTagsAction.Name">
+            <summary>
+            Gets the name of the host that executed the command.
+            </summary>
+        </member>
+        <member name="T:Telligent.Caching.ObjectCondition">
+            <summary>
+            An override condition that matches based on a specified type.
+            </summary>
+        </member>
+        <member name="M:Telligent.Caching.ObjectCondition.#ctor">
+            <summary>
+            Creates a new instance of a <see cref="T:Telligent.Caching.ObjectCondition"/>.
+            </summary>	
+        </member>
+        <member name="M:Telligent.Caching.ObjectCondition.#ctor(System.Type)">
+            <summary>
+            Creates a new instance of a <see cref="T:Telligent.Caching.ObjectCondition"/>.
+            </summary>
+            <param name="target">The <see cref="T:System.Type"/> the override applies to.</param>
+        </member>
+        <member name="P:Telligent.Caching.ObjectCondition.Target">
+            <summary>
+            Gets or sets the <see cref="T:System.Type"/> the override applies to.
+            </summary>
+        </member>
+        <member name="T:Telligent.Caching.Web.HttpContextCache">
+            <summary>
+            A <see cref="T:Telligent.Caching.ICache"/> that uses the current <see cref="T:System.Web.HttpContext"/> for storage and retrieval.  This class cannot be inherited.
+            </summary>
+        </member>
+        <member name="T:Telligent.Caching.Diagnostics.PutAction">
+            <summary>
+            An object was explicitly placed into cache by user code.
+            </summary>
+        </member>
+        <member name="M:Telligent.Caching.Diagnostics.PutAction.#ctor(System.String,System.String[],System.TimeSpan,System.TimeSpan,Telligent.Caching.CacheScope,Telligent.Caching.CacheScope,System.String)">
+            <summary>
+            Creates a new instance of a <see cref="T:Telligent.Caching.Diagnostics.PutAction"/>.
+            </summary>
+            <param name="key">The key used in the command.</param>
+            <param name="tags">The tags used in the command.</param>
+            <param name="requestTimeout">The timeout specified in the command.</param>
+            <param name="actualTimeout">The actual timeout used in the command.</param>
+            <param name="requestScope">The scope specified in the command.</param>
+            <param name="hostScope">The host scope used in the command.</param>
+            <param name="name">The name of the host that executed the command.</param>
+        </member>
+        <member name="P:Telligent.Caching.Diagnostics.PutAction.Key">
+            <summary>
+            Gets the key used in the command.
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.Diagnostics.PutAction.Tags">
+            <summary>
+            Gets the tags used in the command.
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.Diagnostics.PutAction.RequestTimeout">
+            <summary>
+            Gets the timeout specified in the command.
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.Diagnostics.PutAction.ActualTimeout">
+            <summary>
+            Gets the actual timeout used in the command.
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.Diagnostics.PutAction.RequestScope">
+            <summary>
+            Gets the scope specified in the request.
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.Diagnostics.PutAction.HostScope">
+            <summary>
+            Gets the executing host's scope.
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.Diagnostics.PutAction.Name">
+            <summary>
+            Gets the name of the host that executed the command.
+            </summary>
+        </member>
+        <member name="T:Telligent.Caching.Configuration.Extensions.XmlNodeExtensions">
+            <summary>
+            Provides extension methods for working with <see cref="T:System.Xml.XmlNode"/> instances.
+            </summary>
+        </member>
+        <member name="M:Telligent.Caching.Configuration.Extensions.XmlNodeExtensions.GetAttributeValue(System.Xml.XmlNode,System.String,System.Boolean)">
+            <summary>
+            Returns the value for a specific attribute, optionally throwing an exception if the attribute was not found.
+            </summary>
+            <param name="node">The <see cref="T:System.Xml.XmlNode"/> that contains the attribute.</param>
+            <param name="attributeName">The attribute name to search for.</param>
+            <param name="throwExceptionIfMissing">Determines whether or not an exception is throw if the attribute is missing.</param>
+            <returns>the <see cref="T:System.String"/> value specified by the attribute; otherwise, null.</returns>
+        </member>
+        <member name="T:Telligent.Caching.TrueCondition">
+            <summary>
+            An override condition that always evaluates to true.
+            </summary>
+        </member>
+        <member name="M:Telligent.Caching.TrueCondition.#ctor">
+            <summary>
+            Creates a new instance of a <see cref="T:Telligent.Caching.TrueCondition"/>.
+            </summary>	
+        </member>
+        <member name="T:Telligent.Caching.FalseCondition">
+            <summary>
+            An override condition that always evaluates to false.
+            </summary>
+        </member>
+        <member name="M:Telligent.Caching.FalseCondition.#ctor">
+            <summary>
+            Creates a new instance of a <see cref="T:Telligent.Caching.FalseCondition"/>.
+            </summary>	
+        </member>
+        <member name="T:Telligent.Caching.ContainsCondition">
+            <summary>
+            A condition that attempts to match a substring against keys or tags.
+            </summary>
+        </member>
+        <member name="M:Telligent.Caching.ContainsCondition.#ctor">
+            <summary>
+            Creates a new instance of a <see cref="T:Telligent.Caching.ContainsCondition"/> using the default values.
+            </summary>
+        </member>
+        <member name="M:Telligent.Caching.ContainsCondition.#ctor(Telligent.Caching.AliasConditionMode,System.String)">
+            <summary>
+            Creates a new instance of a <see cref="T:Telligent.Caching.ContainsCondition"/>.
+            <param name="mode">Specifies the data used when evaluating the condition.</param>
+            <param name="contains">The substring pattern to match.</param>
+            </summary>
+        </member>
+        <member name="P:Telligent.Caching.ContainsCondition.Contains">
+            <summary>
+            Gets or sets the substring pattern to use when matching against keys or tags.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,47 @@
+<emailTemplates>
+	<emailTemplate name="forum_threadmoved_tracking">
+		<subject>
+			<![CDATA[
+$core_v2_configuration.SiteName: $core_v2_forum.Current.Name: $core_v2_forumThread.Current.Subject moved
+			]]>
+		</subject>
+		<htmlBody>
+			<![CDATA[
+#set($forum = $core_v2_forum.Current)
+#set($post = $core_v2_forumThread.Current)
+
+<div style="font-family: arial; font-size: 10pt;">
+	The following thread was moved:<br/><br/>
+	<b>Subject</b>:  $post.Subject<br/>
+	<b>Moved to</b>:  $forum.Name<br/><br/>
+	<div style="font-family: arial; color: #7F7F7F; font-size: 8pt;">
+		You were sent this email because you opted to receive email notifications for this forum or thread. <a href="$core_v2_forumUrls.Thread($post.Id)">You can view this thread online</a>.
+		<p>
+			To unsubscribe from only this thread, <a href="$core_v2_forumUrls.Thread($post.Id)">disable email notifications online</a>.  To disable all email notifications from $core_v2_configuration.SiteName, navigate to "Settings", click on the "Email" tab, then under the "Email Configuration" section, set "Send Notifications" to "No".
+		</p>
+	</div>
+</div>
+			]]>
+		</htmlBody>
+		<textBody>
+			<![CDATA[
+#set($forum = $core_v2_forum.Current)
+#set($post = $core_v2_forumThread.Current)
+
+The following thread was moved:
+
+Subject: $email_utility.RenderText($post.Subject)
+Moved to: $email_utility.RenderText($forum.Name)
+Number of replies: $post.ReplyCount
+Link: $core_v2_forumUrls.Thread($post.Id)
+
+--
+You were sent this email because you opted to receive email notifications for this forum or thread.
+
+To unsubscribe from:
+- ...only this thread, disable notifications at $core_v2_forumUrls.Thread($post.Id).
+- ...all email notifications from $core_v2_configuration.SiteName, navigate to "Settings", click on the "Email" tab, then under the "Email Configuration" section, set Send Notifications to "No".
+			]]>
+		</textBody>
+	</emailTemplate>
+</emailTemplates>

@@ -1,0 +1,35 @@
+<emailTemplates>
+	<emailTemplate name="messages_conversation">
+		<subject>
+			<![CDATA[
+#set($message = $core_v2_conversationMessage.Current)
+$message.Author.DisplayName sent you a message: $message.Subject
+			]]>
+		</subject>
+		<htmlBody>
+			<![CDATA[
+#set($message = $core_v2_conversationMessage.Current)
+
+<div style="font-family: arial; font-size: 10pt;">
+	<b>From:</b> $message.Author.DisplayName<br/>
+	<b>Subject:</b> $message.Subject
+	<div>$email_utility.RenderHtml($message)</div>
+	<div style="font-size: 8pt; color: #7F7F7F;">
+		<a href="$core_v2_urls.Conversation($message.ConversationId)">Reply to the message online</a>.
+	</div>
+</div>
+			]]>
+		</htmlBody>
+		<textBody>
+			<![CDATA[
+#set($message = $core_v2_conversationMessage.Current)
+From: $message.Author.DisplayName
+Subject: $email_utility.RenderText($message.Subject)
+Message:
+$email_utility.RenderText($message)
+
+Reply at $core_v2_urls.Conversation($message.ConversationId).
+			]]>
+		</textBody>
+	</emailTemplate>
+</emailTemplates>

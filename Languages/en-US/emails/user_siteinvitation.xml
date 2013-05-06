@@ -1,0 +1,37 @@
+<emailTemplates>
+	<emailTemplate name="user_siteinvitation">
+		<subject>
+			<![CDATA[
+$core_v2_user.Current.DisplayName invites you to join $core_v2_configuration.SiteName
+			]]>
+		</subject>
+		<htmlBody>
+			<![CDATA[
+#set($user = $core_v2_user.Current)
+#set($invitation = $core_v2_userInvitation.Current)
+
+<div style="font-family: arial; font-size: 10pt;">
+  <p>
+    $user.DisplayName invites you to join $core_v2_configuration.SiteName:<br/>
+    <div>$email_utility.RenderHtml($invitation.Message)</div>
+  </p>
+  <p>
+    <a href="$core_v2_urls.AcceptInvitation($invitation.InvitationKey)">Accept this invitation</a> and join the community... $core_v2_configuration.SiteName offers blogs, forums, wikis, and media galleries to collaborate with friends. Connect with $user.DisplayName and others today!
+  </p>
+</div>
+			]]>
+		</htmlBody>
+		<textBody>
+			<![CDATA[
+#set($user = $core_v2_user.Current)
+#set($invitation = $core_v2_userInvitation.Current)
+
+$user.DisplayName invites you to join $core_v2_configuration.SiteName at $core_v2_urls.Home():
+
+$email_utility.RenderText($invitation.Message)
+
+Accept this invitation at $core_v2_urls.AcceptInvitation($invitation.InvitationKey) and join the community... $core_v2_configuration.SiteName offers blogs, forums, wikis, and media galleries to collaborate with friends. Connect with $user.DisplayName and others today!
+			]]>
+		</textBody>
+	</emailTemplate>
+</emailTemplates>

@@ -1,0 +1,39 @@
+<%@ Master Language="C#" AutoEventWireup="true" MasterPageFile="Setup.Master" %>
+
+<asp:Content ContentPlaceHolderID="PageTitleRegion" runat="server">
+   <CP:ResourceControl ID="ResourceControl1" runat="server" ResourceName="CP_Settings_NavBar_Settings" />
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="PanelTitle" runat="server">
+    <CP:ResourceControl ID="ResourceControl2" runat="server" ResourceName="CP_Settings_NavBar_Settings" />
+</asp:Content>
+
+<asp:Content runat="server" ContentPlaceHolderID="TopLeft">
+    <span class="pipe">&raquo;</span>
+    <asp:HyperLink runat="server" NavigateUrl="~/ControlPanel/Settings/"><CP:ResourceControl ID="ResourceControl3" runat="server" ResourceName="CP_Settings_NavBar_Settings" /></asp:HyperLink>    
+    <asp:ContentPlaceHolder runat="server" ID="TopLeft">
+        <span class="pipe">&raquo;</span>
+        <asp:ContentPlaceHolder id="DescriptionRegion" runat="server" />
+    </asp:ContentPlaceHolder>
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="PanelNavigation" runat="server">
+    <div class="DashboardMenuArea">
+        <CP:NavigationDropDownList CssClass="DashboardMenu" OpenCssClass="DashboardMenuOpen" runat="server" FileName="~/ControlPanel/DashboardMenu.config" MenuGroupCssClass="DashboardContextMenuGroup" MenuItemCssClass="DashboardContextMenuItem" MenuItemSelectedCssClass="DashboardContextMenuItemHover" MenuItemIconWidth="20" MenuItemIconHeight="20" MenuDirection="Down" ZIndex="100" />
+    </div>
+    <CP:ControlPanelNavigationTabs runat="server" Filename="Settings/NavBar.config" 
+        PanesCssClass="NavPane"
+	    TabSetCssClass="NavPaneTabSet"
+	    TabCssClasses="NavPaneTab"
+	    TabSelectedCssClasses="NavPaneTabSelected"
+	    TabHoverCssClasses="NavPaneTabHover"
+	    ChildCssClass="ChildNavPaneTabSet"
+	    ChildTabCssClasses="ChildNavPaneTab"
+	    ChildTabSelectedCssClasses="ChildNavPaneTabSelected"
+	    ChildTabHoverCssClasses="ChildNavPaneTabHover" />
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="TaskRegion" runat="server">
+    <CP:ControlPanelSelectedNavigation runat="server" SelectedTab2="Settings" />
+    <asp:ContentPlaceHolder runat="server" id="TaskRegion" />
+</asp:Content>

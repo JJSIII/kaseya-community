@@ -1,0 +1,54 @@
+<emailTemplates>
+	<emailTemplate name="forum_suggestedanswer">
+		<subject>
+			<![CDATA[
+$core_v2_forumReply.Current.Subject: Answer suggested
+			]]>
+		</subject>
+		<htmlBody>
+			<![CDATA[
+#set($post = $core_v2_forumReply.Current)
+
+<style type="text/css">
+	blockquote.quote { border:1px dotted #CCCCCC; padding:5px; }
+	blockquote div.quote-user { font-weight: bold; }
+	blockquote div.quote-content p { margin: 0; font-style: italic; }
+</style>
+<div style="font-family: arial; font-size: 10pt;">
+<div style="font-size:12pt;"><b>The following post by $post.Author.DisplayName was suggested as an answer to "<a href="$core_v2_forumUrls.ForumReply($post.Id)">$post.Subject</a>":</b></div><br/><br/>
+	<div>$email_utility.RenderHtml($post)</div>
+	<div style="background-color:#FFDDDD; border-width: 5px; border-color: #FFDDDD; border-style: solid;">
+		Did this answer your question? <a href="$core_v2_forumUrls.VerifyForumThreadAnswer($post.Id)">Verify as the answer</a><br/>
+		Not the answer to your question? <a href="$core_v2_forumUrls.RejectForumThreadAnswer($post.Id)">Reject as the answer</a>
+	</div>
+</div>
+<p style="font-family: arial; color: #7F7F7F; font-size: 8pt;">
+    <a href="$core_v2_urls.ReportAbuse($core_v2_forumUrls.ForumReply($post.Id), $post.ContentId, $post.GlobalContentTypeId)">Flag</a> this reply as spam/abuse.
+</p>
+			]]>
+		</htmlBody>
+		<textBody>
+			<![CDATA[
+#set($post = $core_v2_forumReply.Current)
+
+From: $post.Author.DisplayName
+Post: $email_utility.RenderText($post.Subject)
+Posted in: $email_utility.RenderText($core_v2_forum.Current.Name)
+Link: $core_v2_forumUrls.ForumReply($post.Id)
+
+Suggested Answer:
+$email_utility.RenderText($post)
+
+Did this answer your question? Verify as the answer: $core_v2_forumUrls.VerifyForumThreadAnswer($post.Id)
+Not the answer to your question? Reject as the answer: $core_v2_forumUrls.RejectForumThreadAnswer($post.Id)
+
+------------------------------------------------------------------
+You were sent this email because you opted to receive email notifications when someone responded to this thread.
+
+To unsubscribe from:
+- ...only this thread, disable notifications at $core_v2_forumUrls.ForumReply($post.Id).
+- ...all email notifications from $core_v2_configuration.SiteName, navigate to "Settings", click on the "Email" tab, then under the "Email Configuration" section, set Send Notifications to "No".
+			]]>
+		</textBody>
+	</emailTemplate>
+</emailTemplates>

@@ -1,0 +1,45 @@
+<emailTemplates>
+	<emailTemplate name="group_accessrequest">
+		<subject>
+			<![CDATA[
+$core_v2_configuration.SiteName : $email_utility.SiteTerm("group_propercase") access request: $core_v2_group.Current.Name
+			]]>
+		</subject>
+		<htmlBody>
+			<![CDATA[
+#set($group = $core_v2_group.Current)
+
+<div style="font-family: arial; font-size: 10pt;">
+	<b>$core_v2_user.Current.Username</b> has requested access to $group.Name<br/><br/>
+#set ($message = false)
+#set ($message = $core_v2_groupMembership.Current.Message)
+#if($message && $message != "")
+	<b>Message:</b><br/>
+	<div style="font-family: arial; color: #808080; margin: 15px; width: 95%;">
+		$email_utility.RenderHtml($message)
+	</div>
+#end
+	<p>
+		<a href="$core_v2_groupUrls.PendingMemberList($group.Id)">Accept or reject this request online</a>.
+	</p>
+</div>
+			]]>
+		</htmlBody>
+		<textBody>
+			<![CDATA[
+#set($group = $core_v2_group.Current)
+			
+$core_v2_user.Current.Username has requested access to $group.Name
+Link: $core_v2_groupUrls.Group($group.Id)
+
+#set ($message = false)
+#set ($message = $core_v2_groupMembership.Current.Message)
+#if($message && $message != "")
+$email_utility.RenderText($core_v2_groupMembership.Current.Message)
+#end
+
+Accept or reject this request at $core_v2_groupUrls.PendingMemberList($group.Id).
+			]]>
+		</textBody>
+	</emailTemplate>
+</emailTemplates>

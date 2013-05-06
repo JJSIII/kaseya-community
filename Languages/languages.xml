@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<root>
+<!-- 
+Specify enabled languages here
+-->
+  <language name="U.S. English" key="en-US" />
+
+<!-- Disabled since they are not fully complete
+
+	note: the folders and files must exist on your server before enabling these
+	If a user / site has a disabled theme selected, it will default to en-US
+	
+  <language name="Chinese Simplified" key="zh-CN" />
+  <language name="Chinese Traditional" key="zh-TW" />
+  <language name="Danish" key="da-DK" />
+  <language name="Hellenic" key="el-GR" />
+  <language name="Italian" key="it-it" />
+  <language name="Netherlands" key="nl-NL" />
+  <language name="Portuguese" key="pt-PT" />
+  <language name="Russian" key="ru" />
+  <language name="Swedish" key="sv" />
+  <language name="Japanese" key="ja-jp" />
+  <language name="Catalan" key="ca-ca" />
+  <language name="Czech" key="cs-CZ" />
+  <language name="German" key="de-de" />
+  <language name="French" key="fr-fr" />
+  <language name="Slovak" key="sk-SK" />
+-->
+
+</root>

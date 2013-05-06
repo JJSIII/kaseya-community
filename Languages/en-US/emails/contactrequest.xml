@@ -1,0 +1,37 @@
+<emailTemplates>
+	<emailTemplate name="contactrequest">
+		<subject>
+			<![CDATA[
+$core_v2_configuration.SiteName - Contact request: $core_v2_contactRequest.Current.Subject
+			]]>
+		</subject>
+		<htmlBody>
+			<![CDATA[
+#set($contactRequest = $core_v2_contactRequest.Current)
+
+<div style="font-family: arial; font-size: 10pt;">
+	<b>Subject</b>: $contactRequest.Subject
+</div>
+<div style="margin: 15px; width: 95%; font-family: arial; font-size: 10pt; background-color: #F7F7F7; border-width: 5px; border-color: #F7F7F7; border-style: solid;">
+	$email_utility.RenderHtml($contactRequest.Body)
+</div>
+<div style="color: #7F7F7F; font-family: arial; font-size: 8pt;">
+	<p>
+		This contact request was sent from <a href="$core_v2_urls.Home()">$core_v2_configuration.SiteName</a> by $contactRequest.Name without sharing your email address.
+	</p>
+</div>
+			]]>
+		</htmlBody>
+		<textBody>
+			<![CDATA[
+#set($contactRequest = $core_v2_contactRequest.Current)
+
+Subject: $email_utility.RenderText($contactRequest.Subject)
+
+$email_utility.RenderText($contactRequest.Body)
+--
+This contact request was sent from $core_v2_configuration.SiteName by $contactRequest.Name without sharing your email address.
+			]]>
+		</textBody>
+	</emailTemplate>
+</emailTemplates>

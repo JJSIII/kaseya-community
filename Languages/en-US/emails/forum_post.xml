@@ -1,0 +1,105 @@
+<emailTemplates>
+	<emailTemplate name="forum_post">
+		<subject>
+			<![CDATA[
+#if($core_v2_forumThread.Current)
+	#set($post = $core_v2_forumThread.Current)
+#else
+	#set($post = $core_v2_forumReply.Current)
+#end
+#set($forum = $core_v2_forum.Get($post.ForumId))
+$post.Subject
+			]]>
+		</subject>
+		<htmlBody>
+			<![CDATA[
+#if($core_v2_forumThread.Current)
+	#set($post = $core_v2_forumThread.Current)
+	#set($url = $core_v2_forumUrls.Thread($post.Id))
+	#set($threadId = $post.Id)
+	#set($ContentTypeId = $post.ContentTypeId)
+	#set($createdByText = "Thread created by")
+#else
+	#set($post = $core_v2_forumReply.Current)
+	#set($url = $core_v2_forumUrls.ForumReply($post.Id))
+	#set($threadId = $post.ThreadId)
+	#set($ContentTypeId = $post.GlobalContentTypeId)
+	#set($createdByText = "Reply by")
+#end
+
+<style type="text/css">
+	blockquote.quote { border:1px dotted #CCCCCC; padding:5px; }
+	blockquote div.quote-user { font-weight: bold; }
+	blockquote div.quote-content p { margin: 0; font-style: italic; }
+</style>
+<div style="font-family: arial; font-size: 10pt;">
+	<div style="font-size: 12pt;">
+		<b><a href="$url">$post.Subject</a></b>
+	</div>
+	$createdByText $post.Author.DisplayName
+	<div>$email_utility.RenderHtml($post)</div>
+	<div style="font-family: arial; color: #7F7F7F; font-size: 8pt;">
+		#set ($hasFile = false)
+		#if ($post.File)
+			#set ($hasFile = true)
+		#elseif ($post.EmailFiles && $post.EmailFiles.Count > 0)
+			#set ($hasFile = true)
+		#end
+		#if ($hasFile)
+			<div style="border-width: 15px; border-color: #F7F7F7; border-style: solid; width: 95%;">
+				<b>Attachments:</b><br/>
+				#if ($post.File)
+					<a href="$post.File.FileUrl">$post.File.FileName</a><br />
+				#end
+				#if ($post.EmailFiles && $post.EmailFiles.Count > 0)
+					#foreach($emailFile in $post.EmailFiles)
+					#each
+						<a href="$emailFile.DirectDownloadUrl">$emailFile.FileName</a><br />
+					#end
+				#end
+			</div>
+		#end
+		<a href="$core_v2_forumUrls.MuteThread($threadId)">Stop receiving emails</a> on this subject.
+	</div>
+</div>
+<p style="font-family: arial; color: #7F7F7F; font-size: 8pt;">
+    <a href="$core_v2_urls.ReportAbuse($url, $post.ContentId, $ContentTypeId)">Flag</a> this post as spam/abuse.
+</p>
+			]]>
+		</htmlBody>
+		<textBody>
+			<![CDATA[
+#if($core_v2_forumThread.Current)
+	#set($post = $core_v2_forumThread.Current)
+	#set($url = $core_v2_forumUrls.Thread($post.Id))
+#else
+	#set($post = $core_v2_forumReply.Current)
+	#set($url = $core_v2_forumUrls.ForumReply($post.Id))
+#end
+#set($forum = $core_v2_forum.Get($post.ForumId))
+
+From: $post.Author.DisplayName
+Post: $email_utility.RenderText($post.Subject)
+Posted in: $email_utility.RenderText($forum.Name)
+Link: $url
+
+$email_utility.RenderText($post)
+
+#set($attachments = $email_attachments.Current)
+#if($attachments && $attachments.Count > 0)
+Attachments:
+#foreach($attachmentUrl in $attachments.Keys)
+  $attachments.Get($attachmentUrl): $attachmentUrl
+#end
+#end
+
+--
+You were sent this email because you opted to receive email notifications when someone created a new thread.
+
+To unsubscribe from:
+- ...only this thread, disable notifications at $url.
+- ...all email notifications from $core_v2_configuration.SiteName, navigate to "Settings", click on the "Email" tab, then under the "Email Configuration" section, set Send Notifications to "No".
+			]]>
+		</textBody>
+	</emailTemplate>
+</emailTemplates>

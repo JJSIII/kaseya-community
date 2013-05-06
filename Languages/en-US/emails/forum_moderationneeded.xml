@@ -1,0 +1,21 @@
+<emailTemplates>
+	<emailTemplate name="forum_moderationneeded">
+		<subject>
+			<![CDATA[
+$core_v2_configuration.SiteName: Posts Awaiting Moderation
+			]]>
+		</subject>
+		<htmlBody>
+			<![CDATA[
+<div style="font-family: arial; font-size: 10pt;">
+    There are forum posts awaiting your moderation <a href="$core_v2_forumUrls.ModerateForum($core_v2_forum.Current.Id)">here</a>.
+</div>
+			]]>
+		</htmlBody>
+		<textBody>
+			<![CDATA[
+There are forum posts awaiting your moderation. You can view them at: $core_v2_forumUrls.ModerateForum($core_v2_forum.Current.Id)
+			]]>
+		</textBody>
+	</emailTemplate>
+</emailTemplates>

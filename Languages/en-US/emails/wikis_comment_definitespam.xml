@@ -1,0 +1,52 @@
+<emailTemplates>
+	<emailTemplate name="wikis_comment_definitespam">
+		<subject>
+			<![CDATA[
+$core_v2_wikiPage.Current.Title: Confirmed wiki comment spam
+			]]>
+		</subject>
+		<htmlBody>
+			<![CDATA[
+#set($page = $core_v2_wikiPage.Current)
+#set($comment = $core_v2_wikiComment.Current)
+
+<div style="font-family: arial; font-size: 10pt;">
+	<p>
+		<strong style="color:#FF0000">A wiki comment has been identified as spam by the $core_v2_configuration.SiteName spam blocker.</strong>
+	</p>
+	<div style="font-family: arial; font-size: 10pt;">
+		<div style="font-size: 12pt; font-weight: bold;">
+			Comment:
+		</div>
+		<p>
+			$comment.Body
+		</p>
+	</div>
+	<p style="font-family: arial; font-size: 8pt; color=#7F7F7F;">
+		<a href="$core_v2_wikiUrls.Page($page.Id)">View this page online</a>.<br/>
+		<a href="$core_v2_wikiUrls.ManageWikiPageComments($page.WikiId)">Manage wiki comments here</a>.
+	</p>
+</div>
+			]]>
+		</htmlBody>
+		<textBody>
+			<![CDATA[
+#set($page = $core_v2_wikiPage.Current)
+#set($comment = $core_v2_wikiComment.Current)
+
+** A wiki comment has been identified as spam by the $core_v2_configuration.SiteName spam blocker. **
+
+Site: $core_v2_urls.Home()
+Wiki: $core_v2_wikiUrls.Wiki($page.WikiId)
+Page: $page.Title at $core_v2_wikiUrls.Page($page.Id)
+Manage wiki comments here: $page.Title at $core_v2_wikiUrls.ManageWikiPageComments($page.WikiId)
+Posted by: $comment.Author.DisplayName
+Posted on: $comment.PublishedDate
+
+Comment:
+
+$comment.Body
+			]]>
+		</textBody>
+	</emailTemplate>
+</emailTemplates>

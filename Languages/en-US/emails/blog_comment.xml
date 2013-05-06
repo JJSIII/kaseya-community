@@ -1,0 +1,45 @@
+<emailTemplates>
+	<emailTemplate name="blog_comment">
+		<subject>
+			<![CDATA[
+$core_v2_blog.Current.Name: New comment for $core_v2_blogPost.Current.Title
+			]]>
+		</subject>
+		<htmlBody>
+			<![CDATA[
+#set($post = $core_v2_blogPost.Current)
+#set($comment = $core_v2_blogComment.Current)
+
+<div style="font-family: arial; font-size: 10pt;">
+	<div style="font-size: 12pt;">
+		<b><a href="$core_v2_blogUrls.BlogPost($post.Id)">$post.Title</a>: New Comment</b>
+	</div>
+	By $comment.Author.DisplayName<br/>
+	<p>
+		$email_utility.RenderHtml($comment)
+	</p>
+	<div style="color: #7F7F7F; font-size: 8pt;">
+		<p>
+			<a href="$core_v2_blogUrls.BlogPost($post.Id)">View this post online</a>.
+		</p>
+	</div>
+</div>
+<p style="font-family: arial; color: #7F7F7F; font-size: 8pt;">
+    <a href="$core_v2_urls.ReportAbuse($core_v2_blogUrls.BlogPost($post.Id), $comment.CommentId, $comment.CommentContentTypeId)">Flag</a> this comment as spam/abuse.
+</p>
+			]]>
+		</htmlBody>
+		<textBody>
+			<![CDATA[
+#set($post = $core_v2_blogPost.Current)
+#set($comment = $core_v2_blogComment.Current)
+
+From: $comment.Author.DisplayName
+To:  $post.Title in $core_v2_blog.Current.Name
+Link: $core_v2_blogUrls.BlogPost($post.Id)
+
+$email_utility.RenderText($comment)
+			]]>
+		</textBody>
+	</emailTemplate>
+</emailTemplates>

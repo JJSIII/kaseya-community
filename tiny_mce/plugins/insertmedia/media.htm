@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>{#insertmedia_dlg.title}</title>
+	<script type="text/javascript" src="../../tiny_mce_popup.js"></script>
+	<script type="text/javascript" src="js/media.js"></script>
+	<script type="text/javascript" src="../../utils/validate.js"></script>
+	<script type="text/javascript" src="../../utils/form_utils.js"></script>
+	<script type="text/javascript">
+		document.write(Media.getEvolutionScriptIncludes());
+	</script>
+	<link href="css/media.css" rel="stylesheet" type="text/css" />
+</head>
+<body style="display: none" role="application">
+<form onsubmit="Media.insert();return false;" action="#">
+		<fieldset>
+			<legend>{#insertmedia_dlg.media}</legend>
+
+			<table role="presentation" border="0" cellpadding="4" cellspacing="0">
+					<tr>
+						<td><label for="type">{#insertmedia_dlg.from}</label></td>
+						<td>
+							<table role="presentation" border="0" cellspacing="0" cellpadding="0">
+							<tr>
+								<td>
+									<select id="type" name="type" onchange="Media.formToData();">
+										<option value="url">{#insertmedia_dlg.fromurl}</option>
+										<option id="uploadoption" value="upload">{#insertmedia_dlg.fromupload}</option>
+										<option value="search">{#insertmedia_dlg.fromsearch}</option>
+									</select>
+								</td>
+							</tr>
+							</table>
+						</td>
+					</tr>
+					<tr id="urlcontainer">
+						<td><label for="url">{#insertmedia_dlg.url}</label></td>
+						<td>
+							<table role="presentation" border="0" cellspacing="0" cellpadding="0">
+							<tr>
+								<td><input id="url" name="url" type="text" value="" onchange="Media.formToData();" /></td>
+							</tr>
+							</table>
+						</td>
+					</tr>
+					<tr id="uploadcontainer" style="display: none;">
+						<td><label for="file">{#insertmedia_dlg.file}</label></td>
+						<td>
+							<table role="presentation" border="0" cellspacing="0" cellpadding="0">
+							<tr>
+								<td><div id="file"><input name="file" type="file" /></div><input id="fileinput" name="fileinput" type="hidden" /><input id="fileurl" name="fileurl" type="hidden" /></td>
+							</tr>
+							</table>
+						</td>
+					</tr>
+					<tr id="searchcontainer" style="display: none;">
+						<td valign="top"><label for="search">{#insertmedia_dlg.search}</label></td>
+						<td>
+							<table role="presentation" border="0" cellspacing="0" cellpadding="0">
+							<tr>
+								<td><input id="search" name="search" type="text" value="" /></td>
+							</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td><label for="width">{#insertmedia_dlg.size}</label></td>
+						<td>
+							<table role="presentation" border="0" cellpadding="0" cellspacing="0">
+								<tr>
+									<td><input type="text" id="width" name="width" value="" class="size" onchange="Media.formToData('width');" /> x <input type="text" id="height" name="height" value="" class="size" onchange="Media.formToData('height');" /></td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+			</table>
+		</fieldset>
+
+		<fieldset>
+			<legend>{#insertmedia_dlg.preview}</legend>
+			<div id="prevloading" style="display:none">{#insertmedia_dlg.loading}</div>
+			<div id="prev"></div>
+		</fieldset>
+
+		<div class="mceActionPanel">
+			<input type="submit" id="insert" name="insert" value="{#insert}" />
+			<input type="button" id="cancel" name="cancel" value="{#cancel}" onclick="tinyMCEPopup.close();" />
+		</div>
+	</form>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<emailTemplates>
+	<emailTemplate name="forum_disabled">
+		<subject>
+			<![CDATA[
+Message not posted - forum disabled
+			]]>
+		</subject>
+		<htmlBody>
+			<![CDATA[
+#set($message = $email_emailMessage.Current)
+
+<div style="font-family: arial; font-size: 10pt;">
+	The message below could not be sent to $core_v2_forum.Current.Name or distributed to the group members because the group owner has disabled the forum. Please contact the group owner or site administrator.<br/><br/>
+	<div style="margin: 15px">
+		<b>Subject: $email_utility.RenderHtml($message.Subject)</b><br/>
+		Body: $email_utility.RenderHtml($message.Body)
+	</div>
+</div>
+			]]>
+		</htmlBody>
+		<textBody>
+			<![CDATA[
+#set($message = $email_emailMessage.Current)
+
+The message below could not be sent to $core_v2_forum.Current.Name or distributed to the group members because the group owner has disabled the forum. Please contact the group owner or site administrator.
+
+Subject: $email_utility.RenderText($message.Subject)
+
+Body: $email_utility.RenderText($message.Body)
+			]]>
+		</textBody>
+	</emailTemplate>
+</emailTemplates>

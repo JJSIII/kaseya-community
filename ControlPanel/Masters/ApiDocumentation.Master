@@ -1,0 +1,24 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" %>
+<%@ Register TagPrefix="CP" TagName = "ApiNavigation" Src = "~/ControlPanel/ApiDocumentation/ApiNavigation.ascx" %>
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <title>API Documentation</title>
+	<TEControl:Style runat="server" Href="../style/apidocumentation.css" />
+</head>
+<body>
+    <div class="navigation">
+        <CP:ApiNavigation runat="server" />
+    </div>
+    <div class="content">
+        <asp:ContentPlaceHolder ID="Content" runat="server" />
+    </div>
+    <form runat="server">
+        <asp:ScriptManager runat="server" />
+        <TEControl:JQuery runat="server"></TEControl:JQuery>
+        <TEControl:JQueryEvolution runat="server"></TEControl:JQueryEvolution>
+        <script type="text/javascript" src="<%= ResolveUrl("~/ControlPanel/ApiDocumentation/apidocumentation.js") %>"></script>
+    </form>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<emailTemplates>
+	<emailTemplate name="forum_threadmoved_notracking">
+		<subject>
+			<![CDATA[
+$core_v2_configuration.SiteName: $core_v2_forumThread.Current.Subject moved
+			]]>
+		</subject>
+		<htmlBody>
+			<![CDATA[
+<div style="font-family: arial; font-size: 10pt;">
+	<p>
+		The thread: "$core_v2_forumThread.Current.Subject" was moved and you will no longer be getting notifications for this thread.
+	</p>
+	<div style="font-family: arial; color: #7F7F7F; font-size: 8pt;">
+		To unsubscribe from all notifications from $core_v2_configuration.SiteName, navigate to "Settings", click on the "Email" tab, then under the "Email Configuration" section, set Send Notifications to "No".
+	</div>
+</div>
+			]]>
+		</htmlBody>
+		<textBody>
+			<![CDATA[
+$email_utility.RenderText($core_v2_forumThread.Current.Subject) was moved and you will no longer be getting notifications for this thread.
+
+------------------------------------------------------------------
+You were sent this email because you opted to receive email notifications for this thread.
+
+To unsubscribe from all email notifications from $core_v2_configuration.SiteName, navigate to "Settings", click on the "Email" tab, then under the "Email Configuration" section, set Send Notifications to "No".
+			]]>
+		</textBody>
+	</emailTemplate>
+</emailTemplates>

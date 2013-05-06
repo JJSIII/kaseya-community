@@ -1,0 +1,45 @@
+<emailTemplates>
+	<emailTemplate name="messages_spam">
+		<subject>
+			<![CDATA[
+$core_v2_configuration.SiteName: Possible message spam
+			]]>
+		</subject>
+		<htmlBody>
+			<![CDATA[
+#set($messageContainer = $email_messageContainer.Current)
+#set($message = $messageContainer.Message)
+#set($moderator = $core_v2_user.Current)
+
+<div style="font-family: arial; font-size: 10pt;">
+	<p style="color: #FF0000">A message was rated as possible spam by the Spam Blocker within $core_v2_configuration.SiteName.</p>
+	<p>
+		<b>Author:</b> $message.Author.DisplayName<br/>
+		<b>Posted on:</b> $core_v2_language.FormatDateAndTime($message.CreatedDate, $moderator.Id)<br/>
+	</p>
+	<div style="margin: 15px; width: 95%; background-color:#F7F7F7;">
+		$email_utility.RenderHtml($message)
+	</div>
+	<p><a href="$messageContainer.Url">View online.</a></p>
+</div>
+			]]>
+		</htmlBody>
+		<textBody>
+			<![CDATA[
+#set($messageContainer = $email_messageContainer.Current)
+#set($message = $messageContainer.Message)
+#set($moderator = $core_v2_user.Current)
+
+A message was rated as possible spam by the Spam Blocker within $core_v2_configuration.SiteName.
+
+Site: $core_v2_urls.Home()
+Author: $message.Author.DisplayName
+Posted on: $core_v2_language.FormatDateAndTime($message.CreatedDate, $moderator.Id)
+Link: $messageContainer.Url
+Message:
+
+$email_utility.RenderText($message)
+			]]>
+		</textBody>
+	</emailTemplate>
+</emailTemplates>

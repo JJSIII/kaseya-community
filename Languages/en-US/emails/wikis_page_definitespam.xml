@@ -1,0 +1,46 @@
+<emailTemplates>
+	<emailTemplate name="wikis_page_definitespam">
+		<subject>
+			<![CDATA[
+$core_v2_wikiPage.Current.Title: Confirmed wiki spam
+			]]>
+		</subject>
+		<htmlBody>
+			<![CDATA[
+#set($page = $core_v2_wikiPage.Current)
+
+<div style="font-family: arial; font-size: 12pt;">
+  <p>
+    <strong style="color:#FF0000">A wiki page has been identified as spam by the $core_v2_configuration.SiteName spam blocker.</strong>
+  </p>
+<div style="font-family: arial; font-size: 10pt;">
+	<div style="font-size: 12pt; font-weight: bold;">
+		$page.Title
+	</div>
+	Edited by $page.User.DisplayName<br/>
+	<p>$email_utility.RenderHtml($page)</p>
+	<div style="font-family: arial; font-size: 8pt; color=#7F7F7F;">
+		<a href="$core_v2_wikiUrls.Page($page.Id)">View this page online</a>.<br/>
+		<a href="$core_v2_wikiUrls.ManageWikiPages($page.WikiId)">Manage wiki here</a>. 
+	</div>
+</div>
+			]]>
+		</htmlBody>
+		<textBody>
+			<![CDATA[
+#set($page = $core_v2_wikiPage.Current)
+
+** A wiki page has been identified as spam by the $core_v2_configuration.SiteName spam blocker. **
+
+Site: $core_v2_urls.Home()
+Wiki: $core_v2_wikiUrls.Wiki($page.WikiId)
+Page: $page.Title at $core_v2_wikiUrls.Page($page.Id)
+Manage wiki here: $page.Title at $core_v2_wikiUrls.ManageWikiPages($page.WikiId)
+Posted by: $page.User.DisplayName
+Posted on: $page.LastModifiedDate
+
+$email_utility.RenderText($page)
+			]]>
+		</textBody>
+	</emailTemplate>
+</emailTemplates>

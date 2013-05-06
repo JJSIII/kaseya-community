@@ -1,0 +1,44 @@
+<emailTemplates>
+	<emailTemplate name="media_file">
+		<subject>
+			<![CDATA[
+[$core_v2_gallery.Current.Name] File: $core_v2_media.Current.Title
+			]]>
+		</subject>
+		<htmlBody>
+			<![CDATA[
+#set($media = $core_v2_media.Current)
+#set($gallery = $core_v2_gallery.Current)
+
+<div style="font-family: arial; font-size: 12pt;">
+	<p>
+		$media.Author.DisplayName posted <a href="$core_v2_mediaUrls.Media($media.Id)">$media.Title</a> in $gallery.Name:
+	</p>
+	<div style="margin: 15px; width: 95%;">$email_utility.RenderHtml($media.Body())</div>
+	<p>Current Status: #if(!$media.IsApproved)Not#end Published</p>
+	<div style="color: #7F7F7F; font-size: 8pt;">
+		You were sent this email because you are an owner of $gallery.Name and the gallery is set to notify owners of new posts.
+	</div>
+</div>
+<p style="font-family: arial; color: #7F7F7F; font-size: 8pt;">
+    <a href="$core_v2_urls.ReportAbuse($core_v2_mediaUrls.Media($media.Id), $media.ContentId, $media.ContentTypeId)">Flag</a> this file as spam/abuse.
+</p>
+			]]>
+		</htmlBody>
+		<textBody>
+			<![CDATA[
+#set($media = $core_v2_media.Current)
+#set($gallery = $core_v2_gallery.Current)
+
+$media.Author.DisplayName posted $media.Title in $gallery.Name at $core_v2_mediaUrls.Media($media.Id):
+
+$email_utility.RenderText($media.Body())
+
+Current Status: #if(!$media.IsApproved)Not#end Published
+
+--
+You were sent this email because you are an owner of $gallery.Name and the gallery is set to notify owners of new posts.
+			]]>
+		</textBody>
+	</emailTemplate>
+</emailTemplates>

@@ -1,0 +1,98 @@
+<%@ Master Language="C#" AutoEventWireup="true" MasterPageFile="ControlPanel.Master" %>
+<%@ Import Namespace="Telligent.Evolution.MediaGalleries.Components" %>
+<%@ Import Namespace="Telligent.Evolution.Components" %>
+
+<script runat="server" type="text/C#">
+    public static bool HasAccessToMultipleMediaGalleries()
+    {
+		Telligent.Evolution.Components.SectionQuery query = new Telligent.Evolution.Components.SectionQuery
+		{
+			ApplicationType = ApplicationType.MediaGallery,
+			PageSize = 2,
+			IgnorePermissions = false,
+			Action = SecuredAction.Post
+		};
+
+		System.Collections.ObjectModel.Collection<MediaGallery> sections = MediaGalleries.Get(query).Items;
+		if (sections != null && sections.Count > 1)
+			return true;
+
+		return false;
+    }
+
+    private static MediaGallery GetCurrentMG()
+    {
+        return CSContext.Current.GetCurrent<MediaGallery>(ApplicationType.MediaGallery);
+    }
+</script>
+
+<asp:Content ContentPlaceHolderID="PageTitleRegion" runat="server">
+    <TEControl:ConditionalContent runat="server">
+        <ContentConditions><TEControl:CustomCondition runat="server" CustomResult='<%# Context.Request.RawUrl.Contains("switch.aspx") %>' /></ContentConditions>
+        <TrueContentTemplate><CP:ResourceControl ID="ResourceControl1" runat="server" ResourceName="CP_Dashboard_MyMediaGalleries_Select" /></TrueContentTemplate>
+        <FalseContentTemplate><CP:ResourceControl ID="ResourceControl2" runat="server" ResourceName="Managing" /> <TEMedia:MediaGalleryData runat="server" Property="Name" Text="'{0}'" /></FalseContentTemplate>
+    </TEControl:ConditionalContent>
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="PanelTitle" runat="server">
+    <TEControl:ConditionalContent runat="server">
+        <ContentConditions><TEControl:CustomCondition runat="server" CustomResult='<%# Context.Request.RawUrl.Contains("switch.aspx") %>' /></ContentConditions>
+        <TrueContentTemplate><CP:ResourceControl ID="ResourceControl1" runat="server" ResourceName="CP_Dashboard_MyMediaGalleries_Select" /></TrueContentTemplate>
+        <FalseContentTemplate>
+            <CP:ResourceControl ID="ResourceControl2" runat="server" ResourceName="Managing" /> <TEMedia:MediaGalleryData runat="server" Property="Name" Text="'{0}'" />
+            <TEControl:PlaceHolder runat="server">
+                <DisplayConditions><TEControl:CustomCondition runat="server" CustomResult='<%# HasAccessToMultipleMediaGalleries() %>' /></DisplayConditions>
+                <ContentTemplate><span>(<asp:HyperLink runat="server" NavigateUrl="~/ControlPanel/MediaGalleries/switch.aspx"><CP:ResourceControl ID="ResourceControl3" runat="server" ResourceName="CP_Masters_ChooseMediaGallery" /></asp:HyperLink>)</span></ContentTemplate>
+            </TEControl:PlaceHolder>    
+        </FalseContentTemplate>
+    </TEControl:ConditionalContent>
+</asp:Content>
+
+<asp:Content runat="server" ContentPlaceHolderID="TopLeft">
+    <asp:HyperLink runat="server" NavigateUrl="~/ControlPanel/"><CP:ResourceControl ID="ResourceControl4" runat="server" ResourceName="Dashboard" /></asp:HyperLink>
+    <span class="pipe">&raquo;</span>
+    <asp:HyperLink runat="server" NavigateUrl="~/ControlPanel/MediaGalleries/switch.aspx">My Media Galleries</asp:HyperLink>
+    <TEMedia:MediaGalleryData runat="server" Property="Name">
+        <DisplayConditions Operator="Not">
+            <TEControl:CustomCondition runat="server" CustomResult='<%# Context.Request.RawUrl.Contains("switch.aspx") %>' />
+        </DisplayConditions>
+        <LeaderTemplate> <span class="pipe">&raquo;</span> <a href="<%# MediaGalleryUrls.Instance().ControlPanel_Home(GetCurrentMG().SectionID) %>"></LeaderTemplate>
+        <TrailerTemplate></a></TrailerTemplate>
+    </TEMedia:MediaGalleryData>
+    <asp:ContentPlaceHolder runat="server" ID="TopLeft">
+        <span class="pipe">&raquo;</span>
+        <asp:ContentPlaceHolder id="DescriptionRegion" runat="server" />
+    </asp:ContentPlaceHolder>
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="TopRight" runat="server">
+    <TEMedia:MediaGalleryData runat="server" Text='<%# Telligent.Evolution.Components.ResourceManager.GetString("CP_GoToMediaGallery", "ControlPanelResources.xml") %>' LinkTo="MediaGalleryHome">
+        <DisplayConditions Operator="Not">
+            <TEControl:CustomCondition runat="server" CustomResult='<%# Context.Request.RawUrl.Contains("switch.aspx") %>' />
+        </DisplayConditions>
+        <TrailerTemplate> <CP:ResourceControl runat="server" ResourceName="CP_Separator" /> </TrailerTemplate>
+    </TEMedia:MediaGalleryData>
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="PanelNavigation" runat="server" >
+    <CP:ControlPanelSelectedNavigation runat="server" SelectedTab="MediaGalleries" />
+    <asp:ContentPlaceHolder ID="PanelNavigation" runat="server">
+        <div class="DashboardMenuArea">
+            <CP:NavigationDropDownList CssClass="DashboardMenu" OpenCssClass="DashboardMenuOpen" runat="server" FileName="~/ControlPanel/DashboardMenu.config" MenuGroupCssClass="DashboardContextMenuGroup" MenuItemCssClass="DashboardContextMenuItem" MenuItemSelectedCssClass="DashboardContextMenuItemHover" MenuItemIconWidth="20" MenuItemIconHeight="20" MenuDirection="Down" />
+        </div>
+	    <CP:ControlPanelNavigationTabs runat="server" Filename="MediaGalleries/NavBar.config"
+	        PanesCssClass="NavPane"
+	        TabSetCssClass="NavPaneTabSet"
+	        TabCssClasses="NavPaneTab"
+	        TabSelectedCssClasses="NavPaneTabSelected"
+	        TabHoverCssClasses="NavPaneTabHover"
+	        ChildCssClass="ChildNavPaneTabSet"
+	        ChildTabCssClasses="ChildNavPaneTab"
+	        ChildTabSelectedCssClasses="ChildNavPaneTabSelected"
+	        ChildTabHoverCssClasses="ChildNavPaneTabHover" />
+    </asp:ContentPlaceHolder>
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="TaskRegion" runat="server">
+    <asp:ContentPlaceHolder runat="server" id="TaskRegion" />
+</asp:Content>
